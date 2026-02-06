@@ -6,16 +6,12 @@
 ![Coverage](https://img.shields.io/badge/Coverage-94%25-brightgreen.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/diodemusic/pyke/blob/main/LICENCE.txt)
 
-**pyke** is a production-ready Riot API wrapper with intelligent rate limiting and robust error handling, specifically designed for League of Legends.
+**pyke** is a thin async first Riot API wrapper specifically designed for League of Legends.
 
 ## Key Features
 
-- **Smart Rate Limiting** - Dynamic request throttling based on API headers to maximize throughput while preventing 429 errors
-- **Resilient Retry Logic** - Retry strategies for rate limits and server errors with intelligent exponential backoff
-- **Type-Safe** - Full Pydantic model support with comprehensive type hints for autocompletion and validation
 - **Pythonic API** - Clean, intuitive interface that mirrors Riot's API structure exactly
 - **Production Logging** - Standard Python logging integration with configurable levels
-- **Highly Configurable** - Customize timeouts, retry limits, rate limiting behavior, and more
 
 ---
 
@@ -45,7 +41,7 @@ account = api.account.by_riot_id(Continent.EUROPE, "saves", "000")
 
 # Every response is a Pydantic model with dot notation access
 print(f"Riot ID: {account.game_name}#{account.tag_line}")
-print(f"PUUID: {account.puuid}")
+print(f"PUUID:   {account.puuid}")
 
 # Pydantic models provide convenient serialization
 print(account.model_dump_json())  # JSON string
@@ -58,8 +54,8 @@ except exceptions.DataNotFound as e:
     print(e)  # Output: Data not found (Error Code: 404)
     quit()
 
-print(f"PUUID: {region.puuid}")
-print(f"Game: {region.game}")
+print(f"PUUID:  {region.puuid}")
+print(f"Game:   {region.game}")
 print(f"Region: {region.region}")
 ```
 
@@ -67,47 +63,16 @@ print(f"Region: {region.region}")
 
 ## Configuration
 
-pyke offers extensive configuration options for production use:
+pyke offers timeout configuration:
 
 ```py
 from pyke import Pyke
 
 api = Pyke(
     api_key="RGAPI-...",
-    smart_rate_limiting=True,      # Enable intelligent rate limiting (default: True)
     timeout=60,                    # Request timeout in seconds (default: 60)
-    max_rate_limit_retries=5,      # Max retries for 429 errors (default: 5)
-    max_server_error_retries=3,    # Max retries for 502/503/504 (default: 3)
 )
 ```
-
-### Smart Rate Limiting
-
-pyke's rate limiting algorithm analyzes response headers to:
-
-- Calculate optimal wait times between requests
-- Maximize throughput without hitting rate limits
-- Automatically respect `Retry-After` headers on 429 responses
-
-**Result:** Zero rate limit violations while maintaining maximum request speed.
-
-### Intelligent Retry Logic
-
-pyke uses **separate retry strategies** for different error types:
-
-**Rate Limit Errors (429):**
-
-- Independent retry counter (default: 5 attempts)
-- Respects `Retry-After` header from API
-- Logs retry progress: `Rate limit retries: 2/5`
-
-**Server Errors (502/503/504):**
-
-- Separate retry counter (default: 3 attempts)
-- Error-specific exponential backoff:
-  - **504 Gateway Timeout:** 10s base (10s → 20s → 40s) - longer recovery for backend timeouts
-  - **502/503 Server Errors:** 5s base (5s → 10s → 20s) - faster recovery for transient issues
-- Prevents infinite retry loops while maintaining resilience
 
 ---
 
@@ -230,9 +195,6 @@ summoner = api.summoner.by_puuid(Region.EUW, account.puuid)
 
 ## Complete Feature List
 
-- **Smart Rate Limiting** - Dynamic throttling based on API headers
-- **Dual Retry Strategies** - Separate 429 and 50x retry logic with exponential backoff
-- **Type-Safe Models** - 97 Pydantic models with full type hints
 - **Production Logging** - Standard Python logging with configurable levels
 - **Custom Exceptions** - 11 typed exception classes for precise error handling
 - **Continental Routing** - Automatic routing for Account/Match endpoints
@@ -264,13 +226,9 @@ For questions or help, reach out on Discord: `.irm`
 ## License
 
 MIT License - see [LICENSE.txt](https://github.com/diodemusic/pyke/blob/main/LICENCE.txt) for details.
-
----
-
-**Made with ❤️ for the League of Legends developer community**
 """
 
-from . import ddragon, endpoints, enums, exceptions, models
+from . import ddragon, endpoints, enums, exceptions
 from .__version__ import __author__, __title__, __version__
 from .enums.continent import Continent
 from .enums.division import Division
@@ -298,5 +256,4 @@ __all__ = [
     "__version__",
     "endpoints",
     "enums",
-    "models",
 ]

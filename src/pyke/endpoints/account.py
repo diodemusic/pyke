@@ -1,7 +1,6 @@
 from pyke import Continent
 
 from .._base_client import _BaseApiClient
-from ..models.account_v1 import AccountDto, AccountRegionDTO
 
 
 class AccountEndpoint:
@@ -10,7 +9,7 @@ class AccountEndpoint:
     def __init__(self, client: _BaseApiClient):
         self._client = client
 
-    def by_puuid(self, continent: Continent, puuid: str) -> AccountDto:
+    def by_puuid(self, continent: Continent, puuid: str):
         """# Get account by puuid
 
         **Example:**  
@@ -27,11 +26,9 @@ class AccountEndpoint:
         path = f"/riot/account/v1/accounts/by-puuid/{puuid}"
         data = self._client._continent_request(continent=continent, path=path)
 
-        return AccountDto(**data)
+        return data
 
-    def by_riot_id(
-        self, continent: Continent, game_name: str, tag_line: str
-    ) -> AccountDto:
+    def by_riot_id(self, continent: Continent, game_name: str, tag_line: str):
         """# Get account by riot id
 
         **Example:**  
@@ -49,9 +46,9 @@ class AccountEndpoint:
         path = f"/riot/account/v1/accounts/by-riot-id/{game_name}/{tag_line}"
         data = self._client._continent_request(continent=continent, path=path)
 
-        return AccountDto(**data)
+        return data
 
-    def region_by_puuid(self, continent: Continent, puuid: str) -> AccountRegionDTO:
+    def region_by_puuid(self, continent: Continent, puuid: str):
         """# Get active region (lol and tft)
 
         **Example:**  
@@ -68,4 +65,4 @@ class AccountEndpoint:
         path = f"/riot/account/v1/region/by-game/lol/by-puuid/{puuid}"
         data = self._client._continent_request(continent=continent, path=path)
 
-        return AccountRegionDTO(**data)
+        return data
