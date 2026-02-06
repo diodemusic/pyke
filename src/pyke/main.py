@@ -52,17 +52,11 @@ class Pyke:
     def __init__(
         self,
         api_key: str | None,
-        smart_rate_limiting: bool = True,
         timeout: int = 60,
-        max_rate_limit_retries: int = 5,
-        max_server_error_retries: int = 3,
     ) -> None:
         self._client = _BaseApiClient(
             api_key,
-            smart_rate_limiting,
             timeout,
-            max_rate_limit_retries,
-            max_server_error_retries,
         )
 
         self.account = AccountEndpoint(self._client)
