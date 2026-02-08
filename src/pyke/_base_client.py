@@ -116,6 +116,9 @@ class _BaseApiClient:  # pyright: ignore[reportUnusedClass]
         if code == 200:
             return self._response_json(response)
 
+        if code == 429:
+            raise exceptions.RateLimitExceeded("Rate limit exceeded", code)
+
         raise self._status_code_registry.get(
             code,
             exceptions.UnknownError(
