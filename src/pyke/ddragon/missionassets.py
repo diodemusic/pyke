@@ -3,15 +3,15 @@ from typing import Any
 from .._base_data_dragon_client import _BaseDataDragonClient
 
 
-class FeatsData:
+class MissionassetsData:
     def __init__(self, client: _BaseDataDragonClient):
         self._client = client
 
     def get_all(self, locale: str) -> dict[str, Any]:
-        """# Get all feats by locale
+        """# Get all missionassets by locale
 
         **Example:**
-            `feats = ddragon.feats.get_all("en_GB")`
+            `missionassets = ddragon.missionassets.get_all("en_GB")`
 
         **Args:**
             `locale (str)` Locale to use.
@@ -20,4 +20,4 @@ class FeatsData:
             `dict[str, any]`
         """  # fmt: skip
 
-        return self._client._data_dragon_cdn_request(locale, "feats")
+        return self._client._data_dragon_cdn_request(locale, "mission-assets")

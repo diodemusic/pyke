@@ -4,22 +4,19 @@ from __future__ import annotations
 
 from ._base_client import _BaseApiClient
 from ._base_data_dragon_client import _BaseDataDragonClient
-
-# Data dragon
 from .ddragon.challenges import ChallengesData
 from .ddragon.champion import ChampionData
 from .ddragon.champion_full import ChampionFullData
-from .ddragon.feats import FeatsData
 from .ddragon.item import ItemData
+from .ddragon.itemmodifiers import ItemmodifiersData
 from .ddragon.language import LanguageData
 from .ddragon.map import MapData
+from .ddragon.missionassets import MissionassetsData
 from .ddragon.profileicon import ProfileiconData
 from .ddragon.runes_reforged import RunesReforgedData
 from .ddragon.spellbuffs import SpellbuffsData
 from .ddragon.sticker import StickerData
 from .ddragon.summoner import SummonerData
-
-# Riot API
 from .endpoints.account import AccountEndpoint
 from .endpoints.champion import ChampionEndpoint
 from .endpoints.champion_mastery import ChampionMasteryEndpoint
@@ -31,8 +28,6 @@ from .endpoints.lol_status import StatusEndpoint
 from .endpoints.match import MatchEndpoint
 from .endpoints.spectator import SpectatorEndpoint
 from .endpoints.summoner import SummonerEndpoint
-
-# from .ddragon.versions import VersionsData
 
 
 class Pyke:
@@ -81,11 +76,13 @@ class DataDragon:
         self.item = ItemData(self._client)
         self.runes_reforged = RunesReforgedData(self._client)
         self.language = LanguageData(self._client)
-        self.feats = FeatsData(self._client)
+        self.itemmodifiers = ItemmodifiersData(self._client)
         self.champion_full = ChampionFullData(self._client)
         self.summoner = SummonerData(self._client)
         self.champion = ChampionData(self._client)
         self.challenges = ChallengesData(self._client)
+        self.missionassets = MissionassetsData(self._client)
+        self.champion = ChampionData(self._client)
         self.sticker = StickerData(self._client)
         self.profileicon = ProfileiconData(self._client)
         self.map = MapData(self._client)
