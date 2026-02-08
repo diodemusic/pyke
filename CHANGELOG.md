@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Removed pydantic models in favour of lists and dicts
+- Removed automatic rate limiting
+- Removed retries and backoff / exponential backoff
 
 ---
 
