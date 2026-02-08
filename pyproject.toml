@@ -1,6 +1,6 @@
 [project]
 name = "pyke-lol"
-version = "2.1.1"
+version = "3.0.0"
 description = "A Riot API wrapper specifically for League of Legends."
 authors = [{ name = "diodemusic" }]
 license = { text = "MIT" }
