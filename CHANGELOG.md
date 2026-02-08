@@ -21,6 +21,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [v3.0.0] - 2026-02-08
+
+### Removed
+
+- Removed pydantic models in favour of lists and dicts
+
+---
+
 ## [v2.1.1] - 2025-11-13
 
 ### Added
