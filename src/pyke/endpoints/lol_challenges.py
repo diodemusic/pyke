@@ -1,18 +1,15 @@
+from typing import Any
+
 from pyke import Level, Region
 
 from .._base_client import _BaseApiClient
-from ..models.lol_challenges_v1 import (
-    ApexPlayerInfoDto,
-    ChallengeConfigInfoDto,
-    PlayerInfoDto,
-)
 
 
 class ChallengesEndpoint:
     def __init__(self, client: _BaseApiClient):
         self._client = client
 
-    def config(self, region: Region) -> list[ChallengeConfigInfoDto]:
+    def config(self, region: Region) -> list[dict[Any, Any]]:
         """# List of all basic challenge configuration information (includes all translations for names and descriptions)
 
         **Example:**  
@@ -22,15 +19,15 @@ class ChallengesEndpoint:
             `region (Region)` [Region](/pyke/pyke.html#Region) to execute against.  
 
         **Returns:**  
-            `list[ChallengeConfigInfoDto]` List of [ChallengeConfigInfoDto](/pyke/pyke/models/lol_challenges_v1.html#ChallengeConfigInfoDto).
+            `list[dict[Any, Any]]`
         """  # fmt: skip
 
         path = "/lol/challenges/v1/challenges/config"
         data = self._client._region_request(region=region, path=path)
 
-        return [ChallengeConfigInfoDto(**challenge_config) for challenge_config in data]
+        return data
 
-    def percentiles(self, region: Region) -> dict[int, dict[int, dict[str, int]]]:
+    def percentiles(self, region: Region) -> dict[Any, Any]:
         """# Map of level to percentile of players who have achieved it - keys: ChallengeId -> Season -> Level -> percentile of players who achieved it
 
         **Example:**  
@@ -40,7 +37,7 @@ class ChallengesEndpoint:
             `region (Region)` [Region](/pyke/pyke.html#Region) to execute against.  
 
         **Returns:**  
-            `dict[int, dict[int, dict[str, int]]]` Map of level to percentile of players who have achieved it - keys: ChallengeId -> Season -> Level -> percentile of players who achieved it.
+            `dict[Any, Any]`
         """  # fmt: skip
 
         path = "/lol/challenges/v1/challenges/percentiles"
@@ -50,7 +47,7 @@ class ChallengesEndpoint:
 
     def config_by_challenge_id(
         self, region: Region, challenge_id: int
-    ) -> ChallengeConfigInfoDto:
+    ) -> dict[Any, Any]:
         """# Get challenge configuration (REST)
 
         **Example:**  
@@ -61,17 +58,17 @@ class ChallengesEndpoint:
             `challenge_id (int)` Challenge id integer.  
 
         **Returns:**  
-            `ChallengeConfigInfoDto` [ChallengeConfigInfoDto](/pyke/pyke/models/lol_challenges_v1.html#ChallengeConfigInfoDto).
+            `dict[Any, Any]`
         """  # fmt: skip
 
         path = f"/lol/challenges/v1/challenges/{challenge_id}/config"
         data = self._client._region_request(region=region, path=path)
 
-        return ChallengeConfigInfoDto(**data)
+        return data
 
     def leaderboards_by_level(
         self, region: Region, level: Level, challenge_id: int
-    ) -> list[ApexPlayerInfoDto]:
+    ) -> list[dict[Any, Any]]:
         """# Return top players for each level. Level must be MASTER, GRANDMASTER or CHALLENGER
 
         **Example:**  
@@ -83,13 +80,13 @@ class ChallengesEndpoint:
             `challenge_id (int)` Challenge id integer.  
 
         **Returns:**  
-            `list[ApexPlayerInfoDto]` List of [ApexPlayerInfoDto](/pyke/pyke/models/lol_challenges_v1.html#ApexPlayerInfoDto).
+            `list[dict[Any, Any]]` data
         """  # fmt: skip
 
         path = f"/lol/challenges/v1/challenges/{challenge_id}/leaderboards/by-level/{level.value}"
         data = self._client._region_request(region=region, path=path)
 
-        return [ApexPlayerInfoDto(**apex_player_info) for apex_player_info in data]
+        return data
 
     def percentiles_by_challenge_id(
         self, region: Region, challenge_id: int
@@ -112,7 +109,7 @@ class ChallengesEndpoint:
 
         return data
 
-    def by_puuid(self, region: Region, puuid: str) -> PlayerInfoDto:
+    def by_puuid(self, region: Region, puuid: str) -> dict[Any, Any]:
         """# Returns player information with list of all progressed challenges (REST)
 
         **Example:**  
@@ -123,10 +120,10 @@ class ChallengesEndpoint:
             `puuid (str)` Encrypted PUUID. Exact length of 78 characters.  
 
         **Returns:**  
-            `PlayerInfoDto` [PlayerInfoDto](/pyke/pyke/models/lol_challenges_v1.html#PlayerInfoDto).
+            `dict[Any, Any]`
         """  # fmt: skip
 
         path = f"/lol/challenges/v1/player-data/{puuid}"
         data = self._client._region_request(region=region, path=path)
 
-        return PlayerInfoDto(**data)
+        return data

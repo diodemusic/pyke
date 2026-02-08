@@ -39,24 +39,15 @@ api = Pyke("RGAPI-...")
 # For example account/v1/accounts/by-riot-id/{gameName}/{tagLine} becomes:
 account = api.account.by_riot_id(Continent.EUROPE, "saves", "000")
 
-# Every response is a Pydantic model with dot notation access
-print(f"Riot ID: {account.game_name}#{account.tag_line}")
-print(f"PUUID:   {account.puuid}")
-
-# Pydantic models provide convenient serialization
-print(account.model_dump_json())  # JSON string
-print(account.model_dump())       # Python dictionary
+print(f"Riot ID: {account['gameName']}#{account['tagLine']}")
+print(f"PUUID:   {account['puuid']}")
 
 # pyke throws typed exceptions matching Riot API error codes
 try:
-    region = api.account.region_by_puuid(Continent.EUROPE, account.puuid)
+    region = api.account.region_by_puuid(Continent.EUROPE, account["puuid"])
 except exceptions.DataNotFound as e:
     print(e)  # Output: Data not found (Error Code: 404)
     quit()
-
-print(f"PUUID:  {region.puuid}")
-print(f"Game:   {region.game}")
-print(f"Region: {region.region}")
 ```
 
 ---
@@ -128,28 +119,6 @@ logging.basicConfig(
 
 ## Advanced Features
 
-### Type Safety with Pydantic Models
-
-All API responses are Pydantic models with full type hints:
-
-```py
-from pyke import Pyke, Region
-
-api = Pyke("RGAPI-...")
-
-account = api.account.by_riot_id(Continent.EUROPE, "saves", "000")
-summoner = api.summoner.by_puuid(Region.EUW, account.puuid)
-
-# Dot notation access with autocomplete
-print(summoner.puuid)             # Type: str
-print(summoner.summoner_level)    # Type: int
-print(summoner.profile_icon_id)   # Type: int
-
-# JSON serialization
-json_str = summoner.model_dump_json()
-dict_data = summoner.model_dump()
-```
-
 ### Custom Exception Handling
 
 pyke provides typed exceptions for all HTTP status codes:
@@ -219,7 +188,7 @@ summoner = api.summoner.by_puuid(Region.EUW, account.puuid)
 
 Found a bug or have a feature request? Open an issue on [GitHub](https://github.com/diodemusic/pyke/issues).
 
-For questions or help, reach out on Discord: `.irm`
+For any questions or help, please reach out on Discord: `.irm`
 
 ---
 

@@ -1,18 +1,17 @@
 from __future__ import annotations
 
+from typing import Any
+
 from pyke import Region
 
 from .._base_client import _BaseApiClient
-from ..models.champion_mastery_v4 import ChampionMasteryDto
 
 
 class ChampionMasteryEndpoint:
     def __init__(self, client: _BaseApiClient):
         self._client = client
 
-    def masteries_by_puuid(
-        self, region: Region, puuid: str
-    ) -> list[ChampionMasteryDto]:
+    def masteries_by_puuid(self, region: Region, puuid: str) -> list[dict[Any, Any]]:
         """# Get all champion mastery entries sorted by number of champion points descending
 
         **Example:**  
@@ -23,17 +22,17 @@ class ChampionMasteryEndpoint:
             `puuid (str)` Encrypted PUUID. Exact length of 78 characters.  
 
         **Returns:**  
-            `list[ChampionMasteryDto]` List of [ChampionMasteryDto](/pyke/pyke/models/champion_mastery_v4.html#ChampionMasteryDto).
+            `list[dict[Any, Any]]`
         """  # fmt: skip
 
         path = f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}"
         data = self._client._region_request(region=region, path=path)
 
-        return [ChampionMasteryDto(**champion_mastery) for champion_mastery in data]
+        return data
 
     def by_puuid_and_champion_id(
         self, region: Region, puuid: str, champion_id: int
-    ) -> ChampionMasteryDto:
+    ) -> dict[Any, Any]:
         """# Get a champion mastery by puuid and champion ID
 
         **Example:**  
@@ -45,17 +44,17 @@ class ChampionMasteryEndpoint:
             `champion_id (int)` Champion ID for this entry.  
 
         **Returns:**  
-            `ChampionMasteryDto` [ChampionMasteryDto](/pyke/pyke/models/champion_mastery_v4.html#ChampionMasteryDto).
+            `dict[Any, Any]`
         """  # fmt: skip
 
         path = f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/by-champion/{champion_id}"
         data = self._client._region_request(region=region, path=path)
 
-        return ChampionMasteryDto(**data)
+        return data
 
     def masteries_by_puuid_top(
         self, region: Region, puuid: str, count: int | None = None
-    ) -> list[ChampionMasteryDto]:
+    ) -> list[dict[Any, Any]]:
         """# Get specified number of top champion mastery entries sorted by number of champion points descending
 
         **Example:**  
@@ -67,14 +66,14 @@ class ChampionMasteryEndpoint:
             `count (int | None, optional)` Number of entries to retrieve. defaults to 3.  
 
         **Returns:**  
-            `list[ChampionMasteryDto]` List of [ChampionMasteryDto](/pyke/pyke/models/champion_mastery_v4.html#ChampionMasteryDto).
+            `list[dict[Any, Any]]`
         """  # fmt: skip
 
         path = f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/top"
         params = {"count": count}
         data = self._client._region_request(region=region, path=path, params=params)
 
-        return [ChampionMasteryDto(**champion_mastery) for champion_mastery in data]
+        return data
 
     def score_by_puuid(self, region: Region, puuid: str) -> int:
         """# Get a player's total champion mastery score, which is the sum of individual champion mastery levels

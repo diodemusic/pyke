@@ -31,17 +31,19 @@ api = Pyke(API_KEY)
 # Make a request - you'll see INFO logs showing the URL and rate limit status
 account = api.account.by_riot_id(Continent.EUROPE, "saves", "000")
 
-print(f"Riot ID: {account.game_name}#{account.tag_line}")
-print(f"PUUID: {account.puuid}")
+print(f"Riot ID: {account['gameName']}#{account['tagLine']}")
+print(f"PUUID: {account['puuid']}")
 
 # Other useful logging configurations:
 
 # Completely silent (no logs from pyke):
-# logging.getLogger('pyke').setLevel(logging.CRITICAL)
+logging.getLogger("pyke").setLevel(logging.CRITICAL)
+account = api.account.by_riot_id(Continent.EUROPE, "saves", "000")
 
 # Log to file instead of console:
-# logging.basicConfig(
-#     level=logging.INFO,
-#     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-#     filename="api_requests.log"
-# )
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    filename="api_requests.log",
+)
+account = api.account.by_riot_id(Continent.EUROPE, "saves", "000")

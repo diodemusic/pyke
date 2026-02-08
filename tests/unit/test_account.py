@@ -1,5 +1,4 @@
 from pyke import Continent, Pyke
-from pyke.models.account_v1 import AccountDto, AccountRegionDTO
 
 from .base import TEST_PUUID, api
 
@@ -10,7 +9,7 @@ def test_by_puuid(api: Pyke):
         puuid=TEST_PUUID,
     )
 
-    assert isinstance(by_puuid, AccountDto)
+    assert isinstance(by_puuid, dict)
 
 
 def test_by_riot_id(api: Pyke):
@@ -18,7 +17,7 @@ def test_by_riot_id(api: Pyke):
         continent=Continent.EUROPE, game_name="saves", tag_line="000"
     )
 
-    assert isinstance(by_riot_id, AccountDto)
+    assert isinstance(by_riot_id, dict)
 
 
 def test_region_by_puuid(api: Pyke):
@@ -26,4 +25,4 @@ def test_region_by_puuid(api: Pyke):
         continent=Continent.EUROPE, puuid=TEST_PUUID
     )
 
-    assert isinstance(region_by_puuid, AccountRegionDTO)
+    assert isinstance(region_by_puuid, dict)

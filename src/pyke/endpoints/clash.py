@@ -1,14 +1,15 @@
+from typing import Any
+
 from pyke import Region
 
 from .._base_client import _BaseApiClient
-from ..models.clash_v1 import PlayerDto, TeamDto, TournamentDto
 
 
 class ClashEndpoint:
     def __init__(self, client: _BaseApiClient):
         self._client = client
 
-    def by_puuid(self, region: Region, puuid: str) -> list[PlayerDto]:
+    def by_puuid(self, region: Region, puuid: str) -> list[dict[Any, Any]]:
         """# Get players by puuid
 
         **Example:**  
@@ -19,15 +20,15 @@ class ClashEndpoint:
             `puuid (str)` Encrypted PUUID. Exact length of 78 characters.  
 
         **Returns:**  
-            `list[PlayerDto]` List of [PlayerDto](/pyke/pyke/models/clash_v1.html#PlayerDto).
+            `list[dict[Any, Any]]`
         """  # fmt: skip
 
         path = f"/lol/clash/v1/players/by-puuid/{puuid}"
         data = self._client._region_request(region=region, path=path)
 
-        return [PlayerDto(**player) for player in data]
+        return data
 
-    def by_team_id(self, region: Region, team_id: str) -> TeamDto:
+    def by_team_id(self, region: Region, team_id: str) -> dict[Any, Any]:
         """# Get team by ID
 
         **Example:**  
@@ -38,15 +39,15 @@ class ClashEndpoint:
             `team_id (str)` Team id of the clash team.  
 
         **Returns:**  
-            `TeamDto` [TeamDto](/pyke/pyke/models/clash_v1.html#TeamDto).
+            `dict[Any, Any]`
         """  # fmt: skip
 
         path = f"/lol/clash/v1/teams/{team_id}"
         data = self._client._region_request(region=region, path=path)
 
-        return TeamDto(**data)
+        return data
 
-    def tournaments(self, region: Region) -> list[TournamentDto]:
+    def tournaments(self, region: Region) -> list[dict[Any, Any]]:
         """# Get all active or upcoming tournaments
 
         **Example:**  
@@ -56,15 +57,15 @@ class ClashEndpoint:
             `region (Region)` [Region](/pyke/pyke.html#Region) to execute against.  
 
         **Returns:**  
-            `list[TournamentDto]` List of [TournamentDto](/pyke/pyke/models/clash_v1.html#TournamentDto).
+            `list[dict[Any, Any]]`
         """  # fmt: skip
 
         path = "/lol/clash/v1/tournaments"
         data = self._client._region_request(region=region, path=path)
 
-        return [TournamentDto(**tournament) for tournament in data]
+        return data
 
-    def tournament_by_team_id(self, region: Region, team_id: str) -> TournamentDto:
+    def tournament_by_team_id(self, region: Region, team_id: str) -> dict[Any, Any]:
         """# Get tournament by team ID
 
         **Example:**  
@@ -75,17 +76,17 @@ class ClashEndpoint:
             `team_id (str)` Team id of the clash team.  
 
         **Returns:**  
-            `TournamentDto` [TournamentDto](/pyke/pyke/models/clash_v1.html#TournamentDto).
+            `dict[Any, Any]`
         """  # fmt: skip
 
         path = f"/lol/clash/v1/tournaments/by-team/{team_id}"
         data = self._client._region_request(region=region, path=path)
 
-        return TournamentDto(**data)
+        return data
 
     def tournament_by_tournament_id(
         self, region: Region, tournament_id: int
-    ) -> TournamentDto:
+    ) -> dict[Any, Any]:
         """# Get tournament by ID
 
         **Example:**  
@@ -96,10 +97,10 @@ class ClashEndpoint:
             `tournament_id (int)` Tournament id of the clash.  
 
         **Returns:**  
-            `TournamentDto` [TournamentDto](/pyke/pyke/models/clash_v1.html#TournamentDto).
+            `dict[Any, Any]`
         """  # fmt: skip
 
         path = f"/lol/clash/v1/tournaments/{tournament_id}"
         data = self._client._region_request(region=region, path=path)
 
-        return TournamentDto(**data)
+        return data

@@ -11,11 +11,9 @@ api = Pyke(API_KEY)
 # Let's get the current champions in the free rotation
 rotations = api.champion.rotations(Region.EUW)
 
-print(f"Max new player level: {rotations.max_new_player_level}")
+print(f"Max new player level: {rotations['maxNewPlayerLevel']}")
 
 # The free champions for new players are different
-print(
-    f"Free champion ids for new players: {rotations.free_champion_ids_for_new_players}"
-)
+print(f"Free champion ids for new players: {rotations['freeChampionIdsForNewPlayers']}")
 
-print(f"Free champion ids: {rotations.free_champion_ids}")
+print(f"Free champion ids: {rotations['freeChampionIds']}")

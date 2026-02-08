@@ -1,5 +1,4 @@
 from pyke import Pyke, Region
-from pyke.models.champion_mastery_v4 import ChampionMasteryDto
 
 from .base import TEST_PUUID, api
 
@@ -10,8 +9,10 @@ def test_masteries_by_puuid(api: Pyke):
         puuid=TEST_PUUID,
     )
 
+    assert isinstance(masteries_by_puuid, list)
+
     for champion_mastery in masteries_by_puuid:
-        assert isinstance(champion_mastery, ChampionMasteryDto)
+        assert isinstance(champion_mastery, dict)
 
 
 def test_by_puuid_and_champion_id(api: Pyke):
@@ -19,7 +20,7 @@ def test_by_puuid_and_champion_id(api: Pyke):
         region=Region.EUW, puuid=TEST_PUUID, champion_id=11
     )
 
-    assert isinstance(by_puuid_and_champion_id, ChampionMasteryDto)
+    assert isinstance(by_puuid_and_champion_id, dict)
 
 
 def test_masteries_by_puuid_top(api: Pyke):
@@ -27,19 +28,21 @@ def test_masteries_by_puuid_top(api: Pyke):
         region=Region.EUW, puuid=TEST_PUUID, count=10
     )
 
+    assert isinstance(masteries_by_puuid_top, list)
     assert len(masteries_by_puuid_top) == 10
 
     for champion_mastery in masteries_by_puuid_top:
-        assert isinstance(champion_mastery, ChampionMasteryDto)
+        assert isinstance(champion_mastery, dict)
 
     masteries_by_puuid_top = api.champion_mastery.masteries_by_puuid_top(
         region=Region.EUW, puuid=TEST_PUUID
     )
 
+    assert isinstance(masteries_by_puuid_top, list)
     assert len(masteries_by_puuid_top) == 3
 
     for champion_mastery in masteries_by_puuid_top:
-        assert isinstance(champion_mastery, ChampionMasteryDto)
+        assert isinstance(champion_mastery, dict)
 
 
 def test_score_by_puuid(api: Pyke):

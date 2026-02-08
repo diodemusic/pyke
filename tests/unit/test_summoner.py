@@ -1,5 +1,4 @@
 from pyke import Pyke, Region
-from pyke.models.summoner_v4 import SummonerDTO
 
 from .base import TEST_PUUID, api
 
@@ -10,4 +9,4 @@ def test_by_puuid(api: Pyke):
         puuid=TEST_PUUID,
     )
 
-    assert isinstance(by_puuid, SummonerDTO)
+    assert isinstance(by_puuid, dict)

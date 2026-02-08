@@ -1,7 +1,6 @@
 import re
 
 from pyke import Continent, Pyke, Type
-from pyke.models.match_v5 import MatchDto, TimelineDto
 
 from .base import TEST_MATCH_ID, TEST_PUUID, api
 
@@ -19,7 +18,7 @@ def test_match_ids_by_puuid(api: Pyke):
     )
 
     for match_id in match_ids_by_puuid:
-        assert type(match_id) is str
+        assert isinstance(match_id, str)
         assert re.search(r"[A-Z0-9]+_\d{10}", match_id)
 
 
@@ -28,7 +27,7 @@ def test_by_match_id(api: Pyke):
         continent=Continent.EUROPE, match_id=TEST_MATCH_ID
     )
 
-    assert isinstance(by_match_id, MatchDto)
+    assert isinstance(by_match_id, dict)
 
 
 def test_timeline_by_match_id(api: Pyke):
@@ -36,4 +35,4 @@ def test_timeline_by_match_id(api: Pyke):
         continent=Continent.EUROPE, match_id=TEST_MATCH_ID
     )
 
-    assert isinstance(timeline_by_match_id, TimelineDto)
+    assert isinstance(timeline_by_match_id, dict)

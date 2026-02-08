@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+from typing import Any
+
 from pyke import Division, Queue, Region, Tier
 
 from .._base_client import _BaseApiClient
-from ..models.league_exp_v4 import LeagueEntryDTO
 
 
 class LeagueExpEndpoint:
@@ -17,7 +18,7 @@ class LeagueExpEndpoint:
         tier: Tier,
         division: Division,
         page: int | None = None,
-    ) -> list[LeagueEntryDTO]:
+    ) -> list[dict[Any, Any]]:
         """# Get all the league entries
 
         **Example:**  
@@ -31,11 +32,11 @@ class LeagueExpEndpoint:
             `page (int, optional)` Starts with page 1. Defaults to 1.  
 
         **Returns:**  
-            `list[LeagueEntryDTO]` List of [LeagueEntryDTO](/pyke/pyke/models/league_exp_v4.html#LeagueEntryDTO).
+            `list[dict[Any, Any]]`
         """  # fmt: skip
 
         path = f"/lol/league-exp/v4/entries/{queue.value}/{tier.value}/{division.value}"
         params = {"page": page}
         data = self._client._region_request(region=region, path=path, params=params)
 
-        return [LeagueEntryDTO(**league_entry) for league_entry in data]
+        return data

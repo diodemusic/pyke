@@ -12,15 +12,15 @@ api = Pyke(API_KEY)
 status = api.lol_status.platform_data(Region.EUW)
 
 # If there are any incidents we will print the incident in english
-for incident in status.incidents:
-    if incident.incident_severity:
+for incident in status["incidents"]:
+    if incident["incidentSeverity"]:
         print(
-            f"{incident.incident_severity.name} incident: {incident.titles[0].content}"
+            f"{incident['incidentSeverity']['name']} incident: {incident['titles'][0]['content']}"
         )
 
         print("Platforms affected:")
 
-        for platform in incident.platforms:
-            print(platform.name)
+        for platform in incident["platforms"]:
+            print(platform["name"])
 
         print("-" * 20)

@@ -1,3 +1,5 @@
+from typing import Any
+
 from pyke import Continent
 
 from .._base_client import _BaseApiClient
@@ -9,7 +11,7 @@ class AccountEndpoint:
     def __init__(self, client: _BaseApiClient):
         self._client = client
 
-    def by_puuid(self, continent: Continent, puuid: str):
+    def by_puuid(self, continent: Continent, puuid: str) -> dict[Any, Any]:
         """# Get account by puuid
 
         **Example:**  
@@ -20,7 +22,7 @@ class AccountEndpoint:
             `puuid (str)` Encrypted PUUID. Exact length of 78 characters.  
 
         **Returns:**  
-            `AccountDto` [AccountDto](/pyke/pyke/models/account_v1.html#AccountDto).
+            `dict[Any, Any]`
         """  # fmt: skip
 
         path = f"/riot/account/v1/accounts/by-puuid/{puuid}"
@@ -28,7 +30,9 @@ class AccountEndpoint:
 
         return data
 
-    def by_riot_id(self, continent: Continent, game_name: str, tag_line: str):
+    def by_riot_id(
+        self, continent: Continent, game_name: str, tag_line: str
+    ) -> dict[Any, Any]:
         """# Get account by riot id
 
         **Example:**  
@@ -40,7 +44,7 @@ class AccountEndpoint:
             `tag_line (str)` Riot id tag line.  
 
         **Returns:**  
-            `AccountDto` [AccountDto](/pyke/pyke/models/account_v1.html#AccountDto).
+            `dict[Any, Any]`
         """  # fmt: skip
 
         path = f"/riot/account/v1/accounts/by-riot-id/{game_name}/{tag_line}"
@@ -48,7 +52,7 @@ class AccountEndpoint:
 
         return data
 
-    def region_by_puuid(self, continent: Continent, puuid: str):
+    def region_by_puuid(self, continent: Continent, puuid: str) -> dict[Any, Any]:
         """# Get active region (lol and tft)
 
         **Example:**  
@@ -59,7 +63,7 @@ class AccountEndpoint:
             `puuid (str)` Encrypted PUUID. Exact length of 78 characters.  
 
         **Returns:**  
-            `AccountRegionDTO` [AccountRegionDTO](/pyke/pyke/models/account_v1.html#AccountRegionDTO).
+            `dict[Any, Any]`
         """  # fmt: skip
 
         path = f"/riot/account/v1/region/by-game/lol/by-puuid/{puuid}"

@@ -15,8 +15,9 @@ entries = api.league_exp.by_queue_tier_division(
 
 # Now we can print our gold 2 players
 for entry in entries:
-    print(f"Rank: {entry.rank}")
-    print(f"League points: {entry.league_points}")
-    print(f"Wins: {entry.wins}")
-
+    print(f"PUUID:  {entry['puuid']}")
+    print(f"Rank:   {entry['tier']} {entry['rank']}")
+    print(f"LP:     {entry['leaguePoints']}")
+    print(f"Wins:   {entry['wins']}")
+    print(f"Losses: {entry['losses']}")
     print("-" * 50)

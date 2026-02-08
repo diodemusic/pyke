@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+from typing import Any
+
 from pyke import Continent, Type
 
 from .. import exceptions
 from .._base_client import _BaseApiClient
-from ..models.match_v5 import MatchDto, TimelineDto
 
 
 class MatchEndpoint:
@@ -79,7 +80,7 @@ class MatchEndpoint:
 
         return data  # pyright: ignore[reportUnknownVariableType]
 
-    def by_match_id(self, continent: Continent, match_id: str) -> MatchDto:
+    def by_match_id(self, continent: Continent, match_id: str) -> dict[Any, Any]:
         """# Get a match by match id
 
         **Example:**  
@@ -90,15 +91,17 @@ class MatchEndpoint:
             `match_id (str)` Match id string.  
 
         **Returns:**  
-            `MatchDto` [MatchDto](/pyke/pyke/models/match_v5.html#MatchDto).
+            `dict[Any, Any]`
         """  # fmt: skip
 
         path = f"/lol/match/v5/matches/{match_id}"
         data = self._client._continent_request(continent=continent, path=path)
 
-        return MatchDto(**data)
+        return data
 
-    def timeline_by_match_id(self, continent: Continent, match_id: str) -> TimelineDto:
+    def timeline_by_match_id(
+        self, continent: Continent, match_id: str
+    ) -> dict[Any, Any]:
         """# Get a match timeline by match id
 
         **Example:**  
@@ -109,10 +112,10 @@ class MatchEndpoint:
             `match_id (str)` Match id string.  
 
         **Returns:**  
-            `TimelineDto` [TimelineDto](/pyke/pyke/models/match_v5.html#TimelineDto).
+            `dict[Any, Any]`
         """  # fmt: skip
 
         path = f"/lol/match/v5/matches/{match_id}/timeline"
         data = self._client._continent_request(continent=continent, path=path)
 
-        return TimelineDto(**data)
+        return data

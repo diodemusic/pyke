@@ -21,7 +21,7 @@ if not tournaments:
 account = api.account.by_riot_id(Continent.EUROPE, "saves", "000")
 
 # We can get our clash team like this
-players = api.clash.by_puuid(Region.EUW, account.puuid)
+players = api.clash.by_puuid(Region.EUW, account["puuid"])
 
 if not players:
     print("You are not in an active clash team")
@@ -29,13 +29,13 @@ if not players:
 
 # Let's print what roles everyone is playing
 for player in players:
-    if player.puuid == account.puuid:
+    if player["puuid"] == account["puuid"]:
         # We already know our own riot id from the account call we made, no need to get it again
-        riot_id = f"{account.game_name}#{account.tag_line}"
+        riot_id = f"{account['gameName']}#{account['tagLine']}"
     else:
         # For everyone else let's convert puuid to riot id
-        team_mate_account = api.account.by_puuid(Continent.EUROPE, player.puuid)
-        riot_id = f"{account.game_name}#{account.tag_line}"
+        team_mate_account = api.account.by_puuid(Continent.EUROPE, player["puuid"])
+        riot_id = f"{account['gameName']}#{account['tagLine']}"
 
     # Finally we can print the players riot id and role
-    print(f"{riot_id} is playing the {player.position.value} role.")
+    print(f"{riot_id} is playing the {player['position']['value']} role.")
