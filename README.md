@@ -6,7 +6,7 @@
 ![Coverage](https://img.shields.io/badge/Coverage-94%25-brightgreen.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/diodemusic/pyke/blob/main/LICENCE.txt)
 
-**pyke** is a thin async first Riot API wrapper specifically designed for League of Legends.
+**pyke** is a thin async first Riot API wrapper for League of Legends.
 
 ## Key Features
 
