@@ -21,6 +21,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [v3.1.2] - Unreleased
+
+### Added
+
+### Changed
+
+- Documented sg2 routing in `region.py`
+
+### Fixed
+
+### Removed
+
+- Removed PH and TH enums in `region.py` in favour of SG as they all route to the sg2 server
+
+### Deprecated
+
+### Security
+
+---
+
 ## [v3.1.1] - 2026-02-23
 
 ### Fixed
