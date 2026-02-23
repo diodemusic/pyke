@@ -20,8 +20,6 @@ class _BaseApiClient:  # pyright: ignore[reportUnusedClass]
     ) -> None:
         if api_key is None:
             raise ValueError("API key is required, please pass a valid Riot API key.")
-        if not api_key.startswith("RGAPI-") or len(api_key) != 42:
-            raise ValueError("Bad API key, please pass a valid Riot API key.")
 
         self.api_key = api_key
         self.timeout = timeout
