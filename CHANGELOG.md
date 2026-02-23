@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Changed `print_url` and `print_rate_limit` to default to False in `main.py`
+- Changed self.api_key to self.\_api_key in `_base_client.py`
 
 ### Fixed
 

@@ -21,7 +21,7 @@ class _BaseApiClient:  # pyright: ignore[reportUnusedClass]
         if api_key is None:
             raise ValueError("API key is required, please pass a valid Riot API key.")
 
-        self.api_key = api_key
+        self._api_key = api_key
         self.timeout = timeout
         self.print_url = print_url
         self.print_rate_limit = print_rate_limit
@@ -83,7 +83,7 @@ class _BaseApiClient:  # pyright: ignore[reportUnusedClass]
         if self.print_url:
             print(f"URL:        {url}")
 
-        headers = {"X-Riot-Token": self.api_key}
+        headers = {"X-Riot-Token": self._api_key}
 
         try:
             response = await self.client.get(url, headers=headers, params=params)
