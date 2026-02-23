@@ -25,9 +25,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Documented sg2 routing in `region.py`
+
 ### Changed
 
-- Documented sg2 routing in `region.py`
+- Changed `print_url` and `print_rate_limit` to default to False in `main.py`
 
 ### Fixed
 
