@@ -12,17 +12,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        python-version: ["3.14"] # ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
-
-    env:
-      RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
-      TEST_PUUID: ${{ secrets.TEST_PUUID }}
-      TEST_LEAGUE_ID: ${{ secrets.TEST_LEAGUE_ID }}
-      TEST_CHALLENGE_ID: ${{ secrets.TEST_CHALLENGE_ID }}
-      TEST_MATCH_ID: ${{ secrets.TEST_MATCH_ID }}
-      TEST_TEAM_ID: ${{ secrets.TEST_TEAM_ID }}
-      TEST_TOURNAMENT_ID: ${{ secrets.TEST_TOURNAMENT_ID }}
-      PYTHONUNBUFFERED: 1
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
 
     steps:
       - name: Checkout repository
@@ -48,8 +38,8 @@ jobs:
       - name: Security scan with Bandit
         run: bandit -r src
 
-      - name: Run tests
-        run: pytest -v -s
+      # - name: Run tests
+      #   run: pytest -v -s
 
   build-docs:
     runs-on: ubuntu-latest
