@@ -34,25 +34,23 @@ class Pyke:
     """# Main entrypoint for interacting with the Riot API
 
     **Example:**  
-        `api = Pyke("API_KEY")`
+        `api = Pyke("RGAPI-...")`
 
     **Args:**  
         `api_key (str | None)` Your Riot API key.  
-        `smart_rate_limiting (bool, optional)` Automatically throttle requests to stay under rate limits. Defaults to True.  
         `timeout (int, optional)` Request timeout in seconds. Defaults to 60.  
-        `max_rate_limit_retries (int, optional)` Maximum retry attempts for 429 rate limit errors. Defaults to 5.  
-        `max_server_error_retries (int, optional)` Maximum retry attempts for 502/503/504 server errors. Defaults to 3.
+        `print_url (bool, optional)` Print endpoint URL.
+        `print_rate_limit (bool, optional)` Print rate limit usage.
     """  # fmt: skip
 
     def __init__(
         self,
         api_key: str | None,
         timeout: int = 60,
+        print_url: bool = True,
+        print_rate_limit: bool = True,
     ) -> None:
-        self._client = _BaseApiClient(
-            api_key,
-            timeout,
-        )
+        self._client = _BaseApiClient(api_key, timeout, print_url, print_rate_limit)
 
         self.account = AccountEndpoint(self._client)
         self.champion_mastery = ChampionMasteryEndpoint(self._client)
@@ -65,6 +63,15 @@ class Pyke:
         self.match = MatchEndpoint(self._client)
         self.spectator = SpectatorEndpoint(self._client)
         self.summoner = SummonerEndpoint(self._client)
+
+    async def __aenter__(self) -> Pyke:
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):  # type: ignore
+        await self.aclose()
+
+    async def aclose(self):
+        await self._client.aclose()
 
 
 class DataDragon:
@@ -82,7 +89,6 @@ class DataDragon:
         self.champion = ChampionData(self._client)
         self.challenges = ChallengesData(self._client)
         self.missionassets = MissionassetsData(self._client)
-        self.champion = ChampionData(self._client)
         self.sticker = StickerData(self._client)
         self.profileicon = ProfileiconData(self._client)
         self.map = MapData(self._client)
