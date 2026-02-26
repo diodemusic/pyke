@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import types
+
 from ._base_client import _BaseApiClient
 from ._base_data_dragon_client import _BaseDataDragonClient
 from .ddragon.challenges import ChallengesData
@@ -65,7 +67,12 @@ class Pyke:
     async def __aenter__(self) -> Pyke:
         return self
 
-    async def __aexit__(self, exc_type, exc, tb):  # type: ignore
+    async def __aexit__(
+        self,
+        exc_type: BaseException | None,
+        exc: BaseException | None,
+        tb: types.TracebackType | None,
+    ) -> None:
         await self.aclose()
 
     async def aclose(self):
@@ -94,7 +101,12 @@ class DataDragon:
     async def __aenter__(self) -> DataDragon:
         return self
 
-    async def __aexit__(self, exc_type, exc, tb):  # type: ignore
+    async def __aexit__(
+        self,
+        exc_type: BaseException | None,
+        exc: BaseException | None,
+        tb: types.TracebackType | None,
+    ) -> None:
         await self.aclose()
 
     async def aclose(self):

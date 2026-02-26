@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added unit tests
 - Added context manager support in `main.py`
 - Documented sg2 routing in `region.py`
+- Added types to **axeit** in `main.py`
 
 ### Changed
 
