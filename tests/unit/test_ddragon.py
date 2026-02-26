@@ -69,13 +69,15 @@ async def test_runes_reforged_get_all(
     result = await ddragon_client.runes_reforged.get_all(LOCALE)
 
     assert isinstance(result, list)
-    assert result[0]["key"] == "Precision"
+    assert result[0]["key"] == "Precision"  # type: ignore
 
 
 @pytest.mark.asyncio
 async def test_summoner_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
     respx_mock.get(f"{BASE}/summoner.json").mock(
-        return_value=Response(200, json={"data": {"SummonerFlash": {"id": "SummonerFlash"}}})
+        return_value=Response(
+            200, json={"data": {"SummonerFlash": {"id": "SummonerFlash"}}}
+        )
     )
 
     result = await ddragon_client.summoner.get_all(LOCALE)
@@ -86,7 +88,9 @@ async def test_summoner_get_all(ddragon_client: DataDragon, respx_mock: MockRout
 @pytest.mark.asyncio
 async def test_map_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
     respx_mock.get(f"{BASE}/map.json").mock(
-        return_value=Response(200, json={"data": {"11": {"MapName": "Summoner's Rift"}}})
+        return_value=Response(
+            200, json={"data": {"11": {"MapName": "Summoner's Rift"}}}
+        )
     )
 
     result = await ddragon_client.map.get_all(LOCALE)
@@ -95,9 +99,7 @@ async def test_map_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_profileicon_get_all(
-    ddragon_client: DataDragon, respx_mock: MockRouter
-):
+async def test_profileicon_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
     respx_mock.get(f"{BASE}/profileicon.json").mock(
         return_value=Response(200, json={"data": {"0": {"id": 0}}})
     )
@@ -119,9 +121,7 @@ async def test_language_get_all(ddragon_client: DataDragon, respx_mock: MockRout
 
 
 @pytest.mark.asyncio
-async def test_challenges_get_all(
-    ddragon_client: DataDragon, respx_mock: MockRouter
-):
+async def test_challenges_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
     respx_mock.get(f"{BASE}/challenges.json").mock(
         return_value=Response(200, json={"data": {}})
     )
@@ -145,9 +145,7 @@ async def test_itemmodifiers_get_all(
 
 
 @pytest.mark.asyncio
-async def test_spellbuffs_get_all(
-    ddragon_client: DataDragon, respx_mock: MockRouter
-):
+async def test_spellbuffs_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
     respx_mock.get(f"{BASE}/spellbuffs.json").mock(
         return_value=Response(200, json={"data": {}})
     )
