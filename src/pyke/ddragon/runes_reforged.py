@@ -7,17 +7,17 @@ class RunesReforgedData:
     def __init__(self, client: _BaseDataDragonClient):
         self._client = client
 
-    def get_all(self, locale: str) -> dict[str, Any]:
+    async def get_all(self, locale: str) -> dict[str, Any]:
         """# Get all runes_reforged by locale
 
         **Example:**
-            `runes_reforged = ddragon.runes_reforged.get_all("en_GB")`
+            `runes_reforged = await ddragon.runes_reforged.get_all("en_GB")`
 
         **Args:**
             `locale (str)` Locale to use.
 
         **Returns:**
-            `dict[str, any]`
+            `dict[str, Any]`
         """  # fmt: skip
 
-        return self._client._data_dragon_cdn_request(locale, "runesReforged")
+        return await self._client._data_dragon_cdn_request(locale, "runesReforged")

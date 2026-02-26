@@ -8,10 +8,10 @@ from .ddragon.challenges import ChallengesData
 from .ddragon.champion import ChampionData
 from .ddragon.champion_full import ChampionFullData
 from .ddragon.item import ItemData
-from .ddragon.itemmodifiers import ItemmodifiersData
+from .ddragon.item_modifiers import ItemModifiersData
 from .ddragon.language import LanguageData
 from .ddragon.map import MapData
-from .ddragon.missionassets import MissionassetsData
+from .ddragon.mission_assets import MissionAssetsData
 from .ddragon.profileicon import ProfileiconData
 from .ddragon.runes_reforged import RunesReforgedData
 from .ddragon.spellbuffs import SpellbuffsData
@@ -75,20 +75,29 @@ class Pyke:
 
 
 class DataDragon:
-    def __init__(self, version: str | None = None, timeout: int = 10) -> None:
-        self._client = _BaseDataDragonClient(version, timeout)
+    def __init__(self, timeout: int = 10) -> None:
+        self._client = _BaseDataDragonClient(timeout)
 
-        # self.versions = VersionsData(self._client)
         self.spellbuffs = SpellbuffsData(self._client)
         self.item = ItemData(self._client)
         self.runes_reforged = RunesReforgedData(self._client)
         self.language = LanguageData(self._client)
-        self.itemmodifiers = ItemmodifiersData(self._client)
+        self.item_modifiers = ItemModifiersData(self._client)
         self.champion_full = ChampionFullData(self._client)
         self.summoner = SummonerData(self._client)
         self.champion = ChampionData(self._client)
         self.challenges = ChallengesData(self._client)
-        self.missionassets = MissionassetsData(self._client)
+        self.mission_assets = MissionAssetsData(self._client)
+        self.champion = ChampionData(self._client)
         self.sticker = StickerData(self._client)
         self.profileicon = ProfileiconData(self._client)
         self.map = MapData(self._client)
+
+    async def __aenter__(self) -> DataDragon:
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):  # type: ignore
+        await self.aclose()
+
+    async def aclose(self):
+        await self._client.aclose()

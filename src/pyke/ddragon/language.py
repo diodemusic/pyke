@@ -7,17 +7,17 @@ class LanguageData:
     def __init__(self, client: _BaseDataDragonClient):
         self._client = client
 
-    def get_all(self, locale: str) -> dict[str, Any]:
+    async def get_all(self, locale: str) -> dict[str, Any]:
         """# Get all language by locale
 
         **Example:**
-            `language = ddragon.language.get_all("en_GB")`
+            `language = await ddragon.language.get_all("en_GB")`
 
         **Args:**
             `locale (str)` Locale to use.
 
         **Returns:**
-            `dict[str, any]`
+            `dict[str, Any]`
         """  # fmt: skip
 
-        return self._client._data_dragon_cdn_request(locale, "language")
+        return await self._client._data_dragon_cdn_request(locale, "language")

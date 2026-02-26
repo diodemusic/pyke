@@ -25,23 +25,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added unit tests
+- Added context manager support in `main.py`
 - Documented sg2 routing in `region.py`
 
 ### Changed
 
+- Changed `_BaseDataDragonClient` to async in `_base_data_dragon_client.py`
+- Changed all DataDragon methods to async
 - Changed `print_url` and `print_rate_limit` to default to False in `main.py`
 - Changed examples link to main instead of master in `README.md`
+- Updated `cdns.py` generator to detect dragontail version from local directory instead of DataDragon instance, and validate against latest API version before running
 
 ### Fixed
 
+- Fixed pre-instantiated exception reuse in `_status_code_registry`
 - Fixed count param in masteries_by_puuid_top in `champion_mastery.py` to default to 3
 - Fixed page param in by_queue_tier_division in `league_exp.py` to default to 1
-- Fixed `RequestError` incorrectly mapped to `RequestTimeout` in `base_client.py`
+- Fixed `RequestError` incorrectly mapped to `RequestTimeout` in `_base_client.py`
 
 ### Removed
 
 - Removed PH and TH enums in `region.py` in favour of SG as they all route to the sg2 server
 - Removed API key validation in `_base_client.py`
+- Removed `cdn_tests.py` generator
 
 ### Security
 

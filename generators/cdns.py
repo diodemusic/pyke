@@ -1,12 +1,24 @@
 import os
 
-from caseconverter import camelcase, snakecase, titlecase  # type: ignore
+import httpx
+from caseconverter import snakecase, titlecase  # type: ignore
 
-from pyke import DataDragon
-
-ddragon = DataDragon()
-version = ddragon._client.version
 dirname = os.path.dirname(__file__)
+
+dragontail_dirs = sorted(d for d in os.listdir(dirname) if d.startswith("dragontail-"))
+if not dragontail_dirs:
+    raise FileNotFoundError("No dragontail-* directory found in generators/")
+
+version = dragontail_dirs[-1].replace("dragontail-", "")
+
+latest_version = httpx.get(
+    "https://ddragon.leagueoflegends.com/api/versions.json"
+).json()[0]
+if version != latest_version:
+    raise RuntimeError(
+        f"Local dragontail ({version}) is out of date. Latest is {latest_version}. "
+        f"Download it from https://ddragon.leagueoflegends.com/cdn/dragontail-{latest_version}.tgz"
+    )
 path = os.path.join(dirname, f"./dragontail-{version}/{version}/data/en_GB/")
 
 files = os.listdir(path)
@@ -20,7 +32,8 @@ for file in files:
         and not file.startswith("tft")
         and file != ".DS_Store"
     ):
-        file = snakecase(file.replace(".json", "").replace("-", ""))  # type: ignore
+        cdn_key = file.replace(".json", "")
+        file = snakecase(cdn_key.replace("-", "_"))
 
         my_path = os.path.abspath(os.path.dirname(__file__))
         path = os.path.join(my_path, f"../src/pyke/ddragon/{file}.py")
@@ -36,20 +49,20 @@ class {class_name}:
     def __init__(self, client: _BaseDataDragonClient):
         self._client = client
 
-    def get_all(self, locale: str) -> dict[str, Any]:
+    async def get_all(self, locale: str) -> dict[str, Any]:
         """# Get all {file} by locale
 
         **Example:**
-            `{file} = ddragon.{file}.get_all("en_GB")`
+            `{file} = await ddragon.{file}.get_all("en_GB")`
 
         **Args:**
             `locale (str)` Locale to use.
 
         **Returns:**
-            `dict[str, any]`
+            `dict[str, Any]`
         """  # fmt: skip
 
-        return self._client._data_dragon_cdn_request(locale, "{camelcase(file)}")
+        return await self._client._data_dragon_cdn_request(locale, "{cdn_key}")
 '''
             f.write(content)
 
