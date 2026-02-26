@@ -48,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed page param in by_queue_tier_division in `league_exp.py` to default to 1
 - Fixed `RequestError` incorrectly mapped to `RequestTimeout` in `_base_client.py`
 - Fixed generator overwriting path in `cdns.py`
+- Fixed percentile return types in `lol_challenges.py`
 
 ### Removed
 

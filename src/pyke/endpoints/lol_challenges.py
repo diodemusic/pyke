@@ -1,9 +1,8 @@
 from typing import Any
 
+from .._base_client import _BaseApiClient
 from ..enums.level import Level
 from ..enums.region import Region
-
-from .._base_client import _BaseApiClient
 
 
 class ChallengesEndpoint:
@@ -81,7 +80,7 @@ class ChallengesEndpoint:
             `challenge_id (int)` Challenge id integer.  
 
         **Returns:**  
-            `list[dict[Any, Any]]` data
+            `list[dict[Any, Any]]`
         """  # fmt: skip
 
         path = f"/lol/challenges/v1/challenges/{challenge_id}/leaderboards/by-level/{level.value}"
@@ -91,8 +90,8 @@ class ChallengesEndpoint:
 
     async def percentiles_by_challenge_id(
         self, region: Region, challenge_id: int
-    ) -> dict[Level, int]:
-        """# Dictionary of level to percentile of players who have achieved it
+    ) -> dict[str, float]:
+        """# Map of level to percentile of players who have achieved it
 
         **Example:**  
             `percentiles = await api.lol_challenges.percentiles_by_challenge_id(Region.EUW, 123456)`
@@ -102,7 +101,7 @@ class ChallengesEndpoint:
             `challenge_id (int)` Challenge id integer.  
 
         **Returns:**  
-            `dict[Level, int]` Python dictionary {[Level](/pyke/pyke.html#Level): percentile of players who achieved the challenge}
+            `dict[str, float]`
         """  # fmt: skip
 
         path = f"/lol/challenges/v1/challenges/{challenge_id}/percentiles"
