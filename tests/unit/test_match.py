@@ -2,7 +2,7 @@ import pytest
 from httpx import Response
 from respx import MockRouter
 
-from pyke import Continent, Pyke, Type, exceptions
+from pyke import Continent, MatchType, Pyke, exceptions
 
 BASE = "https://europe.api.riotgames.com/lol/match/v5"
 PUUID = "a" * 78
@@ -36,7 +36,7 @@ async def test_match_ids_by_puuid_with_type(pyke_client: Pyke, respx_mock: MockR
     )
 
     result = await pyke_client.match.match_ids_by_puuid(
-        Continent.EUROPE, PUUID, type=Type.RANKED
+        Continent.EUROPE, PUUID, match_type=MatchType.RANKED
     )
 
     assert isinstance(result, list)

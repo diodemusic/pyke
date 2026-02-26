@@ -1,10 +1,9 @@
 from typing import Any
 
-from ..enums.continent import Continent
-from ..enums.type import Type
-
 from .. import exceptions
 from .._base_client import _BaseApiClient
+from ..enums.continent import Continent
+from ..enums.match_type import MatchType
 
 
 class MatchEndpoint:
@@ -20,7 +19,7 @@ class MatchEndpoint:
         start_time: int | None = None,
         end_time: int | None = None,
         queue: int | None = None,
-        type: Type | None = None,
+        match_type: MatchType | None = None,
         start: int | None = None,
         count: int | None = None,
     ) -> list[str]:
@@ -35,7 +34,7 @@ class MatchEndpoint:
             `start_time (int | None, optional)` Epoch timestamp in seconds. The matchlist started storing timestamps on June 16th, 2021. Any matches played before June 16th, 2021 won't be included in the results if the startTime filter is set. Defaults to None.  
             `end_time (int | None, optional)` Epoch timestamp in seconds. Defaults to None.  
             `queue (int | None, optional)` Filter the list of match ids by a specific queue id. This filter is mutually inclusive of the type filter meaning any match ids returned must match both the queue and type filters. Defaults to None.  
-            `type (Type | None, optional)` Filter the list of match ids by the [Type](/pyke/pyke.html#Type) of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters. Defaults to None.  
+            `match_type (MatchType | None, optional)` Filter the list of match ids by the [MatchType](/pyke/pyke.html#MatchType) of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters. Defaults to None.  
             `start (int | None, optional)` Start index. Defaults to 0.  
             `count (int | None, optional)` Valid values: 0 to 100. Number of match ids to return. Defaults to 20.  
 
@@ -45,16 +44,11 @@ class MatchEndpoint:
 
         path = f"/lol/match/v5/matches/by-puuid/{puuid}/ids"
 
-        if type:
-            type_str = type.value
-        else:
-            type_str = None
-
         params = {
             "startTime": start_time,
             "endTime": end_time,
             "queue": queue,
-            "type": type_str,
+            "type": match_type,
             "start": start,
             "count": count,
         }

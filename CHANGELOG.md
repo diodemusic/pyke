@@ -43,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed `cdns.py` generator to detect dragontail version from local directory instead of DataDragon instance, and validate against latest API version before running
 - Changed to relative imports in all endpoints/ files
 - Changed 429 to be handled by the registry in `_base_client.py`
+- Changed Type enum to MatchType
 
 ### Fixed
 

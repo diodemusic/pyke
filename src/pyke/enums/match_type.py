@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Type(Enum):
+class MatchType(Enum):
     """# Type of match"""
 
     RANKED = "ranked"

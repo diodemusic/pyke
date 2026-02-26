@@ -1,4 +1,4 @@
-from pyke import Continent, Division, Level, Queue, Region, Tier, Type
+from pyke import Continent, Division, Level, MatchType, Queue, Region, Tier
 
 # --- Continent ---
 
@@ -99,15 +99,15 @@ def test_level_values():
     assert Level.LOWEST.value == "LOWEST"
 
 
-# --- Type ---
+# --- MatchType ---
 
 
-def test_type_values():
-    assert Type.RANKED.value == "ranked"
-    assert Type.NORMAL.value == "normal"
-    assert Type.TOURNEY.value == "tourney"
-    assert Type.TUTORIAL.value == "tutorial"
+def test_match_type_values():
+    assert MatchType.RANKED.value == "ranked"
+    assert MatchType.NORMAL.value == "normal"
+    assert MatchType.TOURNEY.value == "tourney"
+    assert MatchType.TUTORIAL.value == "tutorial"
 
 
 def test_type_count():
-    assert len(Type) == 4
+    assert len(MatchType) == 4
