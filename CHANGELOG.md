@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [v3.1.2] - Unreleased
+## [v3.2.0] - Unreleased
 
 ### Added
 
@@ -47,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed count param in masteries_by_puuid_top in `champion_mastery.py` to default to 3
 - Fixed page param in by_queue_tier_division in `league_exp.py` to default to 1
 - Fixed `RequestError` incorrectly mapped to `RequestTimeout` in `_base_client.py`
+- Fixed generator overwriting path in `cdns.py`
 
 ### Removed
 

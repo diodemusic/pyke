@@ -36,9 +36,9 @@ for file in files:
         file = snakecase(cdn_key.replace("-", "_"))
 
         my_path = os.path.abspath(os.path.dirname(__file__))
-        path = os.path.join(my_path, f"../src/pyke/ddragon/{file}.py")
+        output_path = os.path.join(my_path, f"../src/pyke/ddragon/{file}.py")
 
-        with open(path, "w") as f:
+        with open(output_path, "w") as f:
             class_name = f"{titlecase(file).replace(' ', '')}Data"
             content = f'''from typing import Any
 

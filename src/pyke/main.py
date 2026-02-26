@@ -93,7 +93,6 @@ class DataDragon:
         self.champion = ChampionData(self._client)
         self.challenges = ChallengesData(self._client)
         self.mission_assets = MissionAssetsData(self._client)
-        self.champion = ChampionData(self._client)
         self.sticker = StickerData(self._client)
         self.profileicon = ProfileiconData(self._client)
         self.map = MapData(self._client)
