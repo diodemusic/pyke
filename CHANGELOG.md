@@ -50,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed PH and TH enums in `region.py` in favour of SG as they all route to the sg2 server
 - Removed API key validation in `_base_client.py`
 - Removed `cdn_tests.py` generator
+- Removed rate limit tracking
 
 ### Security
 
