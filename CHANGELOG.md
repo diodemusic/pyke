@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added comments explaining sg2 routing in `region.py`
 - Added types to **axeit** in `main.py`
 - Added Add **all** declaration in `_base_client.py` and `_base_data_dragon_client.py`
+- Added `print_url` option to DataDragon class. defaults to False
 
 ### Changed
 
