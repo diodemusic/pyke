@@ -12,8 +12,9 @@ __all__ = ["_BaseDataDragonClient"]
 class _BaseDataDragonClient:
     DATA_DRAGON_BASE = "https://ddragon.leagueoflegends.com"
 
-    def __init__(self, timeout: int) -> None:
+    def __init__(self, timeout: int, print_url: bool) -> None:
         self.timeout = timeout
+        self.print_url = print_url
         self.client = httpx.AsyncClient(timeout=httpx.Timeout(self.timeout))
         self._version = self._get_latest_version()
         self._status_code_registry = {
@@ -45,6 +46,9 @@ class _BaseDataDragonClient:
             raise exceptions.InternalServerError("Empty JSON response", 500)
 
     async def _get(self, url: str) -> Any:
+        if self.print_url:
+            print(url)
+
         try:
             response = await self.client.get(url)
         except httpx.TimeoutException:

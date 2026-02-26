@@ -80,8 +80,8 @@ class Pyke:
 
 
 class DataDragon:
-    def __init__(self, timeout: int = 60) -> None:
-        self._client = _BaseDataDragonClient(timeout)
+    def __init__(self, timeout: int = 60, print_url: bool = False) -> None:
+        self._client = _BaseDataDragonClient(timeout, print_url)
 
         self.spellbuffs = SpellbuffsData(self._client)
         self.item = ItemData(self._client)
