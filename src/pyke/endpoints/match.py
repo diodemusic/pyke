@@ -48,7 +48,7 @@ class MatchEndpoint:
             "startTime": start_time,
             "endTime": end_time,
             "queue": queue,
-            "type": match_type,
+            "type": match_type.value if match_type else None,
             "start": start,
             "count": count,
         }
