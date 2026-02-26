@@ -21,7 +21,7 @@ async def main() -> None:
         )
 
         # We will need champion.json from ddragon to resolve champion ids to champion names later
-        champions = ddragon.champion.get_all("en_GB")
+        champions = await ddragon.champion.get_all("en_GB")
 
         # Let's print my top ten champion masteries
         for mastery in masteries[:10]:
