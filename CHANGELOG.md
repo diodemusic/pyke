@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added types to **axeit** in `main.py`
 - Added Add **all** declaration in `_base_client.py` and `_base_data_dragon_client.py`
 - Added `print_url` option to DataDragon class. defaults to False
+- Added 429 error rate limit exceeded handling in `_base_data_dragon_client.py`
 
 ### Changed
 
@@ -40,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed examples link to main instead of master in `README.md`
 - Changed `cdns.py` generator to detect dragontail version from local directory instead of DataDragon instance, and validate against latest API version before running
 - Changed to relative imports in all endpoints/ files
+- Changed 429 to be handled by the registry in `_base_client.py`
 
 ### Fixed
 
