@@ -42,8 +42,6 @@ class _BaseApiClient:
             return response.json()
         except json.JSONDecodeError:
             raise exceptions.InternalServerError("Could not decode JSON", 500)
-        except ValueError:
-            raise exceptions.InternalServerError("Empty JSON response", 500)
 
     async def _get(self, url: str, params: dict[Any, Any] | None = None) -> Any:
         if self.print_url:
