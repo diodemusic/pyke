@@ -108,5 +108,5 @@ class DataDragon:
     ) -> None:
         await self.aclose()
 
-    async def aclose(self):
+    async def aclose(self) -> None:
         await self._client.aclose()
