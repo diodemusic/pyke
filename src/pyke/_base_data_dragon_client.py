@@ -34,9 +34,7 @@ class _BaseDataDragonClient:
     def _get_latest_version(self) -> str:
         with httpx.Client(timeout=self.timeout) as client:
             try:
-                response = client.get(
-                    "https://ddragon.leagueoflegends.com/api/versions.json"
-                )
+                response = client.get(f"{self.DATA_DRAGON_BASE}/api/versions.json")
                 return response.json()[0]
             except Exception as e:
                 raise Exception(f"Error getting latest ddragon version: {e}")
@@ -46,8 +44,6 @@ class _BaseDataDragonClient:
             return response.json()
         except json.JSONDecodeError:
             raise exceptions.InternalServerError("Could not decode JSON", 500)
-        except ValueError:
-            raise exceptions.InternalServerError("Empty JSON response", 500)
 
     async def _get(self, url: str) -> Any:
         if self.print_url:
