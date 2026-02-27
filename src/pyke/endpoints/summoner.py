@@ -12,7 +12,7 @@ class SummonerEndpoint:
         """# Get a summoner by PUUID.
 
         **Example:**  
-            `api.summoner.by_puuid(Region.EUW, "some puuid")`
+            `summoner = await api.summoner.by_puuid(Region.EUW, "some puuid")`
 
         **Args:**  
             `region (Region)` [Region](/pyke/pyke.html#Region) to execute against.  
