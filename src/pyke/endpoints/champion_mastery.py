@@ -1,12 +1,11 @@
 from typing import Any
 
+from .._base_riot_client import _BaseRiotClient
 from ..enums.region import Region
-
-from .._base_client import _BaseApiClient
 
 
 class ChampionMasteryEndpoint:
-    def __init__(self, client: _BaseApiClient):
+    def __init__(self, client: _BaseRiotClient):
         self._client = client
 
     async def masteries_by_puuid(
@@ -26,7 +25,7 @@ class ChampionMasteryEndpoint:
         """  # fmt: skip
 
         path = f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data
 
@@ -48,7 +47,7 @@ class ChampionMasteryEndpoint:
         """  # fmt: skip
 
         path = f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/by-champion/{champion_id}"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data
 
@@ -71,9 +70,7 @@ class ChampionMasteryEndpoint:
 
         path = f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/top"
         params = {"count": count}
-        data = await self._client._region_request(
-            region=region, path=path, params=params
-        )
+        data = await self._client._request(region=region, path=path, params=params)
 
         return data
 
@@ -92,6 +89,6 @@ class ChampionMasteryEndpoint:
         """  # fmt: skip
 
         path = f"/lol/champion-mastery/v4/scores/by-puuid/{puuid}"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return int(data)

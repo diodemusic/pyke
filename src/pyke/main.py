@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import types
 
-from ._base_client import _BaseApiClient
 from ._base_data_dragon_client import _BaseDataDragonClient
+from ._base_riot_client import _BaseRiotClient
 from .ddragon.challenges import ChallengesData
 from .ddragon.champion import ChampionData
 from .ddragon.champion_full import ChampionFullData
@@ -50,7 +50,7 @@ class Pyke:
         timeout: int = 60,
         print_url: bool = False,
     ) -> None:
-        self._client = _BaseApiClient(api_key, timeout, print_url)
+        self._client = _BaseRiotClient(api_key, timeout, print_url)
 
         self.account = AccountEndpoint(self._client)
         self.champion_mastery = ChampionMasteryEndpoint(self._client)

@@ -1,14 +1,13 @@
 from typing import Any
 
+from .._base_riot_client import _BaseRiotClient
 from ..enums.continent import Continent
-
-from .._base_client import _BaseApiClient
 
 
 class AccountEndpoint:
     """There are three routing values for account-v1; americas, asia, and europe. You can query for any account in any region. We recommend using the nearest cluster."""
 
-    def __init__(self, client: _BaseApiClient):
+    def __init__(self, client: _BaseRiotClient):
         self._client = client
 
     async def by_puuid(self, continent: Continent, puuid: str) -> dict[Any, Any]:
@@ -26,7 +25,7 @@ class AccountEndpoint:
         """  # fmt: skip
 
         path = f"/riot/account/v1/accounts/by-puuid/{puuid}"
-        data = await self._client._continent_request(continent=continent, path=path)
+        data = await self._client._request(continent=continent, path=path)
 
         return data
 
@@ -48,7 +47,7 @@ class AccountEndpoint:
         """  # fmt: skip
 
         path = f"/riot/account/v1/accounts/by-riot-id/{game_name}/{tag_line}"
-        data = await self._client._continent_request(continent=continent, path=path)
+        data = await self._client._request(continent=continent, path=path)
 
         return data
 
@@ -67,6 +66,6 @@ class AccountEndpoint:
         """  # fmt: skip
 
         path = f"/riot/account/v1/region/by-game/lol/by-puuid/{puuid}"
-        data = await self._client._continent_request(continent=continent, path=path)
+        data = await self._client._request(continent=continent, path=path)
 
         return data

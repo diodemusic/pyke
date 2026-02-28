@@ -34,6 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added 429 error rate limit exceeded handling in `_base_data_dragon_client.py`
 - Added error handling to `_get_latest_version` in `_base_data_dragon_client.py`
 - Added replays_by_puuid endpoint in `match.py`
+- Added `_BaseRiotClient` class in `_base_riot_client.py` for Riot API-specific logic (auth, routing)
+- Added unified `_request` method in `_BaseRiotClient` replacing `_continent_request` and `_region_request`
 
 ### Changed
 
@@ -45,6 +47,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed to relative imports in all endpoints/ files
 - Changed 429 to be handled by the registry in `_base_client.py`
 - Changed Type enum to MatchType
+- Changed `_BaseApiClient` to `_BaseClient` as a shared base for both Riot API and DataDragon clients
+- Changed `_BaseClient._get` to accept optional `headers` parameter
+- Changed `_BaseDataDragonClient` to inherit from `_BaseClient` instead of duplicating shared logic
+- Changed all endpoint classes to reference `_BaseRiotClient` instead of `_BaseApiClient`
+- Changed `_BaseClient` to own shared attributes (`timeout`, `print_url`, `client`, `aclose`)
 
 ### Fixed
 
@@ -62,6 +69,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed `cdn_tests.py` generator
 - Removed rate limit tracking
 - Removed `from __future__ import annotations` from all files except `main.py`
+- Removed duplicated `_status_code_registry`, `_response_json`, `_get`, and `aclose` from `_BaseDataDragonClient`
+- Removed `_continent_request` and `_region_request` in favour of unified `_request`
+- Removed `_data_dragon_request` from `_BaseDataDragonClient`
 
 ### Security
 

@@ -1,12 +1,11 @@
 from typing import Any
 
+from .._base_riot_client import _BaseRiotClient
 from ..enums.region import Region
-
-from .._base_client import _BaseApiClient
 
 
 class ChampionEndpoint:
-    def __init__(self, client: _BaseApiClient):
+    def __init__(self, client: _BaseRiotClient):
         self._client = client
 
     async def rotations(self, region: Region) -> dict[Any, Any]:
@@ -23,6 +22,6 @@ class ChampionEndpoint:
         """  # fmt: skip
 
         path = "/lol/platform/v3/champion-rotations"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data

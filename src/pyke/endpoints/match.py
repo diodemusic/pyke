@@ -1,7 +1,7 @@
 from typing import Any
 
 from .. import exceptions
-from .._base_client import _BaseApiClient
+from .._base_riot_client import _BaseRiotClient
 from ..enums.continent import Continent
 from ..enums.match_type import MatchType
 
@@ -9,7 +9,7 @@ from ..enums.match_type import MatchType
 class MatchEndpoint:
     """The AMERICAS routing value serves NA, BR, LAN and LAS. The ASIA routing value serves KR and JP. The EUROPE routing value serves EUNE, EUW, ME1, TR and RU. The SEA routing value serves OCE, SG2, TW2 and VN2."""
 
-    def __init__(self, client: _BaseApiClient):
+    def __init__(self, client: _BaseRiotClient):
         self._client = client
 
     async def match_ids_by_puuid(
@@ -53,7 +53,7 @@ class MatchEndpoint:
             "count": count,
         }
         params = {k: v for k, v in params.items() if v is not None}
-        data = await self._client._continent_request(
+        data = await self._client._request(
             continent=continent, path=path, params=params
         )
 
@@ -90,7 +90,7 @@ class MatchEndpoint:
         """  # fmt: skip
 
         path = f"/lol/match/v5/matches/by-puuid/{puuid}/replays"
-        data = await self._client._continent_request(continent=continent, path=path)
+        data = await self._client._request(continent=continent, path=path)
 
         return data
 
@@ -109,7 +109,7 @@ class MatchEndpoint:
         """  # fmt: skip
 
         path = f"/lol/match/v5/matches/{match_id}"
-        data = await self._client._continent_request(continent=continent, path=path)
+        data = await self._client._request(continent=continent, path=path)
 
         return data
 
@@ -130,6 +130,6 @@ class MatchEndpoint:
         """  # fmt: skip
 
         path = f"/lol/match/v5/matches/{match_id}/timeline"
-        data = await self._client._continent_request(continent=continent, path=path)
+        data = await self._client._request(continent=continent, path=path)
 
         return data

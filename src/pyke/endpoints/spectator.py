@@ -1,12 +1,11 @@
 from typing import Any
 
+from .._base_riot_client import _BaseRiotClient
 from ..enums.region import Region
-
-from .._base_client import _BaseApiClient
 
 
 class SpectatorEndpoint:
-    def __init__(self, client: _BaseApiClient):
+    def __init__(self, client: _BaseRiotClient):
         self._client = client
 
     async def by_puuid(self, region: Region, puuid: str) -> dict[Any, Any]:
@@ -24,6 +23,6 @@ class SpectatorEndpoint:
         """  # fmt: skip
 
         path = f"/lol/spectator/v5/active-games/by-summoner/{puuid}"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data

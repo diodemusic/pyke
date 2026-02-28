@@ -1,12 +1,12 @@
 from typing import Any
 
-from .._base_client import _BaseApiClient
+from .._base_riot_client import _BaseRiotClient
 from ..enums.level import Level
 from ..enums.region import Region
 
 
 class ChallengesEndpoint:
-    def __init__(self, client: _BaseApiClient):
+    def __init__(self, client: _BaseRiotClient):
         self._client = client
 
     async def config(self, region: Region) -> list[dict[Any, Any]]:
@@ -23,7 +23,7 @@ class ChallengesEndpoint:
         """  # fmt: skip
 
         path = "/lol/challenges/v1/challenges/config"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data
 
@@ -41,7 +41,7 @@ class ChallengesEndpoint:
         """  # fmt: skip
 
         path = "/lol/challenges/v1/challenges/percentiles"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data
 
@@ -62,7 +62,7 @@ class ChallengesEndpoint:
         """  # fmt: skip
 
         path = f"/lol/challenges/v1/challenges/{challenge_id}/config"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data
 
@@ -84,7 +84,7 @@ class ChallengesEndpoint:
         """  # fmt: skip
 
         path = f"/lol/challenges/v1/challenges/{challenge_id}/leaderboards/by-level/{level.value}"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data
 
@@ -105,7 +105,7 @@ class ChallengesEndpoint:
         """  # fmt: skip
 
         path = f"/lol/challenges/v1/challenges/{challenge_id}/percentiles"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data
 
@@ -124,6 +124,6 @@ class ChallengesEndpoint:
         """  # fmt: skip
 
         path = f"/lol/challenges/v1/player-data/{puuid}"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data

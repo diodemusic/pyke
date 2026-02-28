@@ -1,15 +1,14 @@
 from typing import Any
 
+from .._base_riot_client import _BaseRiotClient
 from ..enums.division import Division
 from ..enums.queue import Queue
 from ..enums.region import Region
 from ..enums.tier import Tier
 
-from .._base_client import _BaseApiClient
-
 
 class LeagueEndpoint:
-    def __init__(self, client: _BaseApiClient):
+    def __init__(self, client: _BaseRiotClient):
         self._client = client
 
     async def challenger_leagues_by_queue(
@@ -31,7 +30,7 @@ class LeagueEndpoint:
         """  # fmt: skip
 
         path = f"/lol/league/v4/challengerleagues/by-queue/{queue.value}"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data
 
@@ -50,7 +49,7 @@ class LeagueEndpoint:
         """  # fmt: skip
 
         path = f"/lol/league/v4/entries/by-puuid/{puuid}"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data
 
@@ -80,9 +79,7 @@ class LeagueEndpoint:
 
         path = f"/lol/league/v4/entries/{queue.value}/{tier.value}/{division.value}"
         params = {"page": page}
-        data = await self._client._region_request(
-            region=region, path=path, params=params
-        )
+        data = await self._client._request(region=region, path=path, params=params)
 
         return data
 
@@ -105,7 +102,7 @@ class LeagueEndpoint:
         """  # fmt: skip
 
         path = f"/lol/league/v4/grandmasterleagues/by-queue/{queue.value}"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data
 
@@ -124,7 +121,7 @@ class LeagueEndpoint:
         """  # fmt: skip
 
         path = f"/lol/league/v4/leagues/{league_id}"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data
 
@@ -147,6 +144,6 @@ class LeagueEndpoint:
         """  # fmt: skip
 
         path = f"/lol/league/v4/masterleagues/by-queue/{queue.value}"
-        data = await self._client._region_request(region=region, path=path)
+        data = await self._client._request(region=region, path=path)
 
         return data

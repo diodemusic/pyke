@@ -5,21 +5,12 @@ import httpx
 from httpx import Response
 
 from . import exceptions
-from .enums.continent import Continent
-from .enums.region import Region
 
-__all__ = ["_BaseApiClient"]
+__all__ = ["_BaseClient"]
 
 
-class _BaseApiClient:
-    CONTINENT_BASE = "https://{continent}.api.riotgames.com"
-    REGION_BASE = "https://{region}.api.riotgames.com"
-
-    def __init__(self, api_key: str | None, timeout: int, print_url: bool) -> None:
-        if api_key is None:
-            raise ValueError("API key is required, please pass a valid Riot API key.")
-
-        self._api_key = api_key
+class _BaseClient:
+    def __init__(self, timeout: int, print_url: bool) -> None:
         self.timeout = timeout
         self.print_url = print_url
         self.client = httpx.AsyncClient(timeout=httpx.Timeout(self.timeout))
@@ -43,11 +34,14 @@ class _BaseApiClient:
         except json.JSONDecodeError:
             raise exceptions.InternalServerError("Could not decode JSON", 500)
 
-    async def _get(self, url: str, params: dict[Any, Any] | None = None) -> Any:
+    async def _get(
+        self,
+        url: str,
+        headers: dict[Any, Any] | None = None,
+        params: dict[Any, Any] | None = None,
+    ) -> Any:
         if self.print_url:
             print(url)
-
-        headers = {"X-Riot-Token": self._api_key}
 
         try:
             response = await self.client.get(url, headers=headers, params=params)
@@ -65,20 +59,6 @@ class _BaseApiClient:
             raise exc_factory()
         else:
             raise exceptions.UnknownError("Unexpected response", response.status_code)
-
-    async def _continent_request(
-        self, continent: Continent, path: str, params: dict[Any, Any] | None = None
-    ) -> Any:
-        url = f"{self.CONTINENT_BASE.format(continent=continent.value)}{path}"
-
-        return await self._get(url, params)
-
-    async def _region_request(
-        self, region: Region, path: str, params: dict[Any, Any] | None = None
-    ) -> Any:
-        url = f"{self.REGION_BASE.format(region=region.value)}{path}"
-
-        return await self._get(url, params)
 
     async def aclose(self) -> None:
         await self.client.aclose()

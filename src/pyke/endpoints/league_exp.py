@@ -1,15 +1,14 @@
 from typing import Any
 
+from .._base_riot_client import _BaseRiotClient
 from ..enums.division import Division
 from ..enums.queue import Queue
 from ..enums.region import Region
 from ..enums.tier import Tier
 
-from .._base_client import _BaseApiClient
-
 
 class LeagueExpEndpoint:
-    def __init__(self, client: _BaseApiClient):
+    def __init__(self, client: _BaseRiotClient):
         self._client = client
 
     async def by_queue_tier_division(
@@ -38,8 +37,6 @@ class LeagueExpEndpoint:
 
         path = f"/lol/league-exp/v4/entries/{queue.value}/{tier.value}/{division.value}"
         params = {"page": page}
-        data = await self._client._region_request(
-            region=region, path=path, params=params
-        )
+        data = await self._client._request(region=region, path=path, params=params)
 
         return data
