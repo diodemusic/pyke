@@ -1,5 +1,6 @@
 from typing import Any
 
+from .. import exceptions
 from .._base_riot_client import _BaseRiotClient
 from ..enums.region import Region
 
@@ -91,4 +92,9 @@ class ChampionMasteryEndpoint:
         path = f"/lol/champion-mastery/v4/scores/by-puuid/{puuid}"
         data = await self._client._request(region=region, path=path)
 
-        return int(data)
+        if not isinstance(data, int):
+            raise exceptions.DataNotFound(
+                message="Data is not of type: int", error_code=404
+            )
+
+        return data
