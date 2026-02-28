@@ -1,3 +1,4 @@
+import asyncio
 from json import JSONDecodeError
 from typing import Any
 
@@ -15,6 +16,7 @@ class _BaseDataDragonClient(_BaseClient):
     def __init__(self, timeout: int, print_url: bool) -> None:
         super().__init__(timeout, print_url)
         self._version: str | None = None
+        self._lock = asyncio.Lock()
 
     async def _get_latest_version(self) -> str:
         try:
@@ -33,7 +35,9 @@ class _BaseDataDragonClient(_BaseClient):
 
     async def _data_dragon_cdn_request(self, locale: str, endpoint: str) -> Any:
         if self._version is None:
-            self._version = await self._get_latest_version()
+            async with self._lock:
+                if self._version is None:
+                    self._version = await self._get_latest_version()
 
         url = (
             f"{self.DATA_DRAGON_BASE}/cdn/{self._version}/data/{locale}/{endpoint}.json"
