@@ -1,6 +1,6 @@
 from typing import Any
 
-import httpx
+from httpx import HTTPError
 
 from ._base_client import _BaseClient
 
@@ -12,17 +12,21 @@ class _BaseDataDragonClient(_BaseClient):
 
     def __init__(self, timeout: int, print_url: bool) -> None:
         super().__init__(timeout, print_url)
-        self._version = self._get_latest_version()
+        self._version: str | None = None
 
-    def _get_latest_version(self) -> str:
-        with httpx.Client(timeout=self.timeout) as client:
-            try:
-                response = client.get(f"{self.DATA_DRAGON_BASE}/api/versions.json")
-                return response.json()[0]
-            except Exception as e:
-                raise Exception(f"Error getting latest ddragon version: {e}")
+    async def _get_latest_version(self) -> str:
+        try:
+            response = await self.client.get(
+                f"{self.DATA_DRAGON_BASE}/api/versions.json"
+            )
+            return response.json()[0]
+        except HTTPError as e:
+            raise HTTPError(f"Error getting latest ddragon version: {e}") from e
 
     async def _data_dragon_cdn_request(self, locale: str, endpoint: str) -> Any:
+        if self._version is None:
+            self._version = await self._get_latest_version()
+
         url = (
             f"{self.DATA_DRAGON_BASE}/cdn/{self._version}/data/{locale}/{endpoint}.json"
         )

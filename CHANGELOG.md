@@ -52,6 +52,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed `_BaseDataDragonClient` to inherit from `_BaseClient` instead of duplicating shared logic
 - Changed all endpoint classes to reference `_BaseRiotClient` instead of `_BaseApiClient`
 - Changed `_BaseClient` to own shared attributes (`timeout`, `print_url`, `client`, `aclose`)
+- Changed `_get_latest_version` in `_base_data_dragon_client.py` to async with lazy resolution on first request
+- Changed broad `except Exception` to `except HTTPError` in `_base_data_dragon_client.py`
 
 ### Fixed
 
