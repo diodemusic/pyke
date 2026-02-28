@@ -1,15 +1,3 @@
-"""
-DataDragon tests.
-
-Note: ddragon `get_all` methods are currently sync functions that return a coroutine
-(since the underlying client methods are async). `await ddragon.x.get_all(...)` works
-because `await` accepts any awaitable, including a coroutine returned by a sync function.
-These tests will behave correctly once `get_all` is properly declared `async def`.
-
-The `ddragon_client` fixture manually sets `_client.version` since `DataDragon.__init__`
-does not yet resolve the version automatically.
-"""
-
 import pytest
 from httpx import Response
 from respx import MockRouter
