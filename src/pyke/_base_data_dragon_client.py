@@ -1,8 +1,10 @@
+from json import JSONDecodeError
 from typing import Any
 
 from httpx import HTTPError
 
 from ._base_client import _BaseClient
+from .exceptions import InternalServerError
 
 __all__ = ["_BaseDataDragonClient"]
 
@@ -22,6 +24,12 @@ class _BaseDataDragonClient(_BaseClient):
             return response.json()[0]
         except HTTPError as e:
             raise HTTPError(f"Error getting latest ddragon version: {e}") from e
+        except JSONDecodeError as e:
+            raise InternalServerError(
+                f"Error response body is not valid json: {e}", 500
+            ) from e
+        except IndexError as e:
+            raise IndexError(f"Error: response returned an empty list: {e}") from e
 
     async def _data_dragon_cdn_request(self, locale: str, endpoint: str) -> Any:
         if self._version is None:
