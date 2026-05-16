@@ -224,8 +224,7 @@ src/pyke/generators/schema.json
 # Claude
 CLAUDE.md
 .claude/
+NOTES.md
 
 # DDragon
 generators/dragontail-*/
-
-CODE_REVIEW.md
