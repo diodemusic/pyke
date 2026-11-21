@@ -4,8 +4,6 @@ from __future__ import annotations
 
 import types
 
-from pyke._rate_limit import RateLimit
-
 from ._base_data_dragon_client import _BaseDataDragonClient
 from ._base_riot_client import _BaseRiotClient
 from .ddragon.challenges import ChallengesData
@@ -65,10 +63,6 @@ class Pyke:
         self.match = MatchEndpoint(self._client)
         self.spectator = SpectatorEndpoint(self._client)
         self.summoner = SummonerEndpoint(self._client)
-
-    @property
-    def rate_limit(self) -> RateLimit:
-        return self._client.rate_limit
 
     async def __aenter__(self) -> Pyke:
         return self
