@@ -27,16 +27,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added full httpx Response to pyke exceptions
+- Added `response` to pyke exceptions: the full `httpx.Response`, so you can read headers such as `Retry-After` when rate limited
 
 ### Changed
 
-- Changed build backend from Poetry to uv (uv_build)
-- Pinned httpx to <1
+- Relaxed the httpx requirement from `<0.29` to `<1`
+- Changed the build backend from Poetry to uv (`uv_build`)
+- Timeout and invalid-JSON errors now chain the original exception
 
 ### Removed
 
-- Removed the dev extra
+- Removed the `dev` extra (`pip install pyke-lol[dev]`)
 
 ---
 
