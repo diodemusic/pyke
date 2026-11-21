@@ -15,9 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Changed build backend from Poetry to uv (uv_build)
+
 ### Fixed
 
 ### Removed
+
+- Removed the dev extra
 
 ### Deprecated
 

@@ -209,9 +209,6 @@ __marimo__/
 # DS Store
 .DS_Store
 
-# Dependencies
-poetry.lock
-
 # OpenAPI Schema
 src/pyke/generators/schema.json
 

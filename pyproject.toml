@@ -3,7 +3,8 @@ name = "pyke-lol"
 version = "3.2.0"
 description = "A Riot API wrapper specifically for League of Legends."
 authors = [{ name = "diodemusic" }]
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENCE.txt"]
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = ["httpx>=0.28.1,<0.29.0"]
@@ -21,8 +22,9 @@ keywords = [
     "restful api",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
+    "pytest>=8",
     "pytest-asyncio>=1.3.0,<2.0.0",
     "anyio>=4.12.1,<5.0.0",
     "respx>=0.22.0,<0.23.0",
@@ -31,16 +33,14 @@ dev = [
     "mypy>=1.18.2,<2.0.0",
     "bandit>=1.8.6,<2.0.0",
     "pdoc>=15.0.4,<16.0.0",
-    "datamodel-code-generator>=0.34.0,<0.35.0",
-    "case-converter>=1.2.0,<2.0.0",
 ]
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.13.9,<0.14.0"]
+build-backend = "uv_build"
 
-[tool.poetry]
-packages = [{ include = "pyke", from = "src" }]
+[tool.uv.build-backend]
+module-name = "pyke"
 
 [tool.pyright]
 reportPrivateUsage = false
@@ -61,3 +61,4 @@ log_cli = true
 log_cli_level = "INFO"
 log_cli_format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 log_cli_date_format = "%H:%M:%S"
+asyncio_default_fixture_loop_scope = "session"

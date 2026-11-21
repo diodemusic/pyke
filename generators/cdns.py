@@ -1,3 +1,10 @@
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+#     "case-converter>=1.2.0",
+#     "httpx>=0.28.1",
+# ]
+# ///
 import os
 
 import httpx
