@@ -7,7 +7,7 @@ license = "MIT"
 license-files = ["LICENCE.txt"]
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = ["httpx>=0.28.1,<0.29.0"]
+dependencies = ["httpx>=0.28.1"]
 keywords = [
     "riot api",
     "league of legends",
