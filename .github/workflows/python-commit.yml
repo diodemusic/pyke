@@ -24,7 +24,7 @@ jobs:
       - run: uv sync --locked
       - run: uv run ruff format --check
       - run: uv run ruff check
-      - run: uv run mypy --ignore-missing-imports .
+      - run: uv run mypy
       - run: uv run pytest -v
 
   build-docs:
