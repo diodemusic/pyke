@@ -11,6 +11,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Fixed
+
+### Removed
+
+### Deprecated
+
+### Security
+
+---
+
+## [v3.3.0] - 2026-11-21
+
+### Added
+
 - Added full httpx Response to pyke exceptions
 
 ### Changed
@@ -18,15 +34,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed build backend from Poetry to uv (uv_build)
 - Pinned httpx to <1
 
-### Fixed
-
 ### Removed
 
 - Removed the dev extra
-
-### Deprecated
-
-### Security
 
 ---
 
