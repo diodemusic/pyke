@@ -221,10 +221,9 @@ src/pyke/generators/schema.json
 # Workspace settings
 .vscode
 
-# Claude
-CLAUDE.md
-.claude/
-NOTES.md
+*.md
+!README.md
+!CHANGELOG.md
 
 # DDragon
 generators/dragontail-*/
