@@ -1,5 +1,5 @@
 import json
-from typing import Any
+from typing import Any, ClassVar
 
 import httpx
 from httpx import Response
@@ -10,7 +10,9 @@ __all__ = ["_BaseClient"]
 
 
 class _BaseClient:
-    _STATUS_MESSAGES = {
+    _STATUS_MESSAGES: ClassVar[
+        dict[int, tuple[type[exceptions.RiotAPIException], str]]
+    ] = {
         400: (exceptions.BadRequest, "Bad request"),
         401: (exceptions.Unauthorized, "Unauthorized"),
         403: (exceptions.Forbidden, "Forbidden"),
@@ -32,8 +34,10 @@ class _BaseClient:
     def _response_json(self, response: Response) -> Any:
         try:
             return response.json()
-        except json.JSONDecodeError:
-            raise exceptions.InternalServerError("Could not decode JSON", 500, response)
+        except json.JSONDecodeError as e:
+            raise exceptions.InternalServerError(
+                "Could not decode JSON", 500, response
+            ) from e
 
     async def _get(
         self,
@@ -46,10 +50,10 @@ class _BaseClient:
 
         try:
             response = await self.client.get(url, headers=headers, params=params)
-        except httpx.TimeoutException:
+        except httpx.TimeoutException as e:
             raise exceptions.RequestTimeout(
                 f"Request timed out after {self.timeout} seconds", 408
-            )
+            ) from e
 
         if response.status_code == 200:
             return self._response_json(response)

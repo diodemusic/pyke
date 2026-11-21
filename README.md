@@ -24,6 +24,7 @@ import asyncio
 
 from pyke import Continent, Pyke, exceptions
 
+
 async def main() -> None:
     # Initialize the API
     async with Pyke("RGAPI-...", timeout=60, print_url=True) as api:
@@ -56,7 +57,7 @@ from pyke import exceptions
 try:
     summoner = await api.summoner.by_puuid(Region.EUW, "NonExistentPuuid")
 except exceptions.DataNotFound as e:
-    print(f"Not found: {e}")     # Data not found (Error Code: 404)
+    print(f"Not found: {e}")  # Data not found (Error Code: 404)
 except exceptions.RateLimitExceeded as e:
     print(f"Rate limited: {e}")  # Rate limit exceeded (Error Code: 429)
 except exceptions.InternalServerError as e:

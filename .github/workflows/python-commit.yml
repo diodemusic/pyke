@@ -22,9 +22,9 @@ jobs:
           enable-cache: true
 
       - run: uv sync --locked
-      - run: uv run black --check --diff .
+      - run: uv run ruff format --check
+      - run: uv run ruff check
       - run: uv run mypy --ignore-missing-imports .
-      - run: uv run bandit -r src
       - run: uv run pytest -v
 
   build-docs:
