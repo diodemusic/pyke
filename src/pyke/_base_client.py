@@ -4,7 +4,7 @@ from typing import Any
 import httpx
 from httpx import Response
 
-from . import _rate_limit, exceptions
+from . import exceptions
 
 __all__ = ["_BaseClient"]
 
@@ -28,16 +28,12 @@ class _BaseClient:
         self.timeout = timeout
         self.print_url = print_url
         self.client = httpx.AsyncClient(timeout=httpx.Timeout(self.timeout))
-        self.rate_limit: _rate_limit.RateLimit = _rate_limit.RateLimit()
 
     def _response_json(self, response: Response) -> Any:
         try:
             return response.json()
         except json.JSONDecodeError:
             raise exceptions.InternalServerError("Could not decode JSON", 500, response)
-
-    def _set_rate_limit(self, response: Response) -> None:
-        self.rate_limit = _rate_limit._parse_response(response)
 
     async def _get(
         self,
@@ -54,8 +50,6 @@ class _BaseClient:
             raise exceptions.RequestTimeout(
                 f"Request timed out after {self.timeout} seconds", 408
             )
-
-        self._set_rate_limit(response)
 
         if response.status_code == 200:
             return self._response_json(response)
