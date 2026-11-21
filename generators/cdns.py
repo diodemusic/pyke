@@ -8,7 +8,7 @@
 import os
 
 import httpx
-from caseconverter import snakecase, titlecase  # type: ignore
+from caseconverter import snakecase, titlecase
 
 dirname = os.path.dirname(__file__)
 
