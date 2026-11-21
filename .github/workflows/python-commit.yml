@@ -40,7 +40,7 @@ jobs:
         with:
           python-version: "3.13"
 
-      - run: uv sync --locked
+      - run: uv sync --locked --no-dev --group docs
 
       - name: Clean old docs
         run: rm -rf docs
