@@ -97,7 +97,7 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "httpx", specifier = ">=0.28.1" }]
+requires-dist = [{ name = "httpx", specifier = ">=0.28.1,<1" }]
 
 [[package]]
 name = "typing-extensions"
