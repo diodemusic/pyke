@@ -41,10 +41,6 @@ build-backend = "uv_build"
 module-name = "pyke"
 source-include = ["tests/**"]
 
-[tool.pyright]
-reportPrivateUsage = false
-typeCheckingMode = "strict"
-
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "S", "SIM", "RUF", "ERA"]
 ignore = ["E501", "RUF022"]
@@ -53,16 +49,18 @@ ignore = ["E501", "RUF022"]
 "tests/*" = ["S101"]
 "examples/*" = ["S311"]
 
-[[tool.pyright.executionEnvironments]]
-root = "tests"
-reportUnusedImport = "none"
-reportMissingTypeStubs = "none"
-
-exclude = [".env", "tests/*"]
-
 [tool.pytest.ini_options]
 log_cli = true
 log_cli_level = "INFO"
 log_cli_format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 log_cli_date_format = "%H:%M:%S"
 asyncio_default_fixture_loop_scope = "session"
+
+[tool.mypy]
+strict = true
+files = ["src", "tests", "examples", "generators"]
+warn_return_any = false                            # TODO: delete this when Any is not being used anymore
+
+[[tool.mypy.overrides]]
+module = ["caseconverter"]
+ignore_missing_imports = true
