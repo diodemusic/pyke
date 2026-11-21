@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Changed build backend from Poetry to uv (uv_build)
+- Pinned httpx to <1
 
 ### Fixed
 
