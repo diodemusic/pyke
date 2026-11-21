@@ -63,8 +63,6 @@ class MatchEndpoint:
                 error_code=404,
             )
 
-        data = cast(list[Any], data)
-
         if not all(isinstance(item, str) for item in data):
             raise exceptions.DataNotFound(
                 message="Match ID list contains non-string values", error_code=404

@@ -10,7 +10,7 @@ MASTERY_BASE = f"{BASE}/lol/champion-mastery/v4"
 
 
 @pytest.mark.asyncio
-async def test_masteries_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_masteries_by_puuid(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{MASTERY_BASE}/champion-masteries/by-puuid/{PUUID}").mock(
         return_value=Response(
             200,
@@ -30,7 +30,9 @@ async def test_masteries_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_by_puuid_and_champion_id(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_by_puuid_and_champion_id(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(
         f"{MASTERY_BASE}/champion-masteries/by-puuid/{PUUID}/by-champion/29"
     ).mock(
@@ -50,7 +52,7 @@ async def test_by_puuid_and_champion_id(pyke_client: Pyke, respx_mock: MockRoute
 @pytest.mark.asyncio
 async def test_masteries_by_puuid_top_without_count(
     pyke_client: Pyke, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(f"{MASTERY_BASE}/champion-masteries/by-puuid/{PUUID}/top").mock(
         return_value=Response(
             200,
@@ -73,7 +75,7 @@ async def test_masteries_by_puuid_top_without_count(
 @pytest.mark.asyncio
 async def test_masteries_by_puuid_top_with_count(
     pyke_client: Pyke, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(f"{MASTERY_BASE}/champion-masteries/by-puuid/{PUUID}/top").mock(
         return_value=Response(
             200,
@@ -92,7 +94,7 @@ async def test_masteries_by_puuid_top_with_count(
 
 
 @pytest.mark.asyncio
-async def test_score_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_score_by_puuid(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{MASTERY_BASE}/scores/by-puuid/{PUUID}").mock(
         return_value=Response(200, json=638)
     )
@@ -104,7 +106,9 @@ async def test_score_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_masteries_not_found_raises(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_masteries_not_found_raises(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{MASTERY_BASE}/champion-masteries/by-puuid/{PUUID}").mock(
         return_value=Response(404)
     )
@@ -116,7 +120,7 @@ async def test_masteries_not_found_raises(pyke_client: Pyke, respx_mock: MockRou
 @pytest.mark.asyncio
 async def test_score_internal_server_error_raises(
     pyke_client: Pyke, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(f"{MASTERY_BASE}/scores/by-puuid/{PUUID}").mock(
         return_value=Response(500)
     )

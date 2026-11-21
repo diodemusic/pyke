@@ -11,24 +11,24 @@ BASE = "https://euw1.api.riotgames.com/lol/status/v4/platform-data"
 # --- Exception class attributes ---
 
 
-def test_exception_message():
+def test_exception_message() -> None:
     exc = exceptions.DataNotFound("Not found", 404)
     assert exc.message == "Not found"
     assert exc.error_code == 404
 
 
-def test_exception_str():
+def test_exception_str() -> None:
     exc = exceptions.DataNotFound("Not found", 404)
     assert str(exc) == "Not found (Error Code: 404)"
 
 
-def test_exception_inherits_from_riot_api_exception():
+def test_exception_inherits_from_riot_api_exception() -> None:
     exc = exceptions.BadRequest("Bad request", 400)
     assert isinstance(exc, exceptions.RiotAPIException)
     assert isinstance(exc, Exception)
 
 
-def test_all_exception_classes():
+def test_all_exception_classes() -> None:
     classes = [
         (exceptions.BadRequest, 400),
         (exceptions.Unauthorized, 401),
@@ -55,7 +55,9 @@ def test_all_exception_classes():
 
 
 @pytest.mark.asyncio
-async def test_400_raises_bad_request(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_400_raises_bad_request(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(BASE).mock(return_value=Response(400))
     with pytest.raises(exceptions.BadRequest) as exc_info:
         await pyke_client.lol_status.platform_data(Region.EUW)
@@ -63,7 +65,9 @@ async def test_400_raises_bad_request(pyke_client: Pyke, respx_mock: MockRouter)
 
 
 @pytest.mark.asyncio
-async def test_401_raises_unauthorized(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_401_raises_unauthorized(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(BASE).mock(return_value=Response(401))
     with pytest.raises(exceptions.Unauthorized) as exc_info:
         await pyke_client.lol_status.platform_data(Region.EUW)
@@ -71,7 +75,7 @@ async def test_401_raises_unauthorized(pyke_client: Pyke, respx_mock: MockRouter
 
 
 @pytest.mark.asyncio
-async def test_403_raises_forbidden(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_403_raises_forbidden(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(BASE).mock(return_value=Response(403))
     with pytest.raises(exceptions.Forbidden) as exc_info:
         await pyke_client.lol_status.platform_data(Region.EUW)
@@ -79,7 +83,9 @@ async def test_403_raises_forbidden(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_404_raises_data_not_found(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_404_raises_data_not_found(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(BASE).mock(return_value=Response(404))
     with pytest.raises(exceptions.DataNotFound) as exc_info:
         await pyke_client.lol_status.platform_data(Region.EUW)
@@ -87,7 +93,9 @@ async def test_404_raises_data_not_found(pyke_client: Pyke, respx_mock: MockRout
 
 
 @pytest.mark.asyncio
-async def test_405_raises_method_not_allowed(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_405_raises_method_not_allowed(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(BASE).mock(return_value=Response(405))
     with pytest.raises(exceptions.MethodNotAllowed):
         await pyke_client.lol_status.platform_data(Region.EUW)
@@ -96,7 +104,7 @@ async def test_405_raises_method_not_allowed(pyke_client: Pyke, respx_mock: Mock
 @pytest.mark.asyncio
 async def test_415_raises_unsupported_media_type(
     pyke_client: Pyke, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(BASE).mock(return_value=Response(415))
     with pytest.raises(exceptions.UnsupportedMediaType):
         await pyke_client.lol_status.platform_data(Region.EUW)
@@ -105,7 +113,7 @@ async def test_415_raises_unsupported_media_type(
 @pytest.mark.asyncio
 async def test_429_raises_rate_limit_exceeded(
     pyke_client: Pyke, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(BASE).mock(return_value=Response(429))
     with pytest.raises(exceptions.RateLimitExceeded) as exc_info:
         await pyke_client.lol_status.platform_data(Region.EUW)
@@ -115,14 +123,16 @@ async def test_429_raises_rate_limit_exceeded(
 @pytest.mark.asyncio
 async def test_500_raises_internal_server_error(
     pyke_client: Pyke, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(BASE).mock(return_value=Response(500))
     with pytest.raises(exceptions.InternalServerError):
         await pyke_client.lol_status.platform_data(Region.EUW)
 
 
 @pytest.mark.asyncio
-async def test_502_raises_bad_gateway(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_502_raises_bad_gateway(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(BASE).mock(return_value=Response(502))
     with pytest.raises(exceptions.BadGateway):
         await pyke_client.lol_status.platform_data(Region.EUW)
@@ -131,14 +141,16 @@ async def test_502_raises_bad_gateway(pyke_client: Pyke, respx_mock: MockRouter)
 @pytest.mark.asyncio
 async def test_503_raises_service_unavailable(
     pyke_client: Pyke, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(BASE).mock(return_value=Response(503))
     with pytest.raises(exceptions.ServiceUnavailable):
         await pyke_client.lol_status.platform_data(Region.EUW)
 
 
 @pytest.mark.asyncio
-async def test_504_raises_gateway_timeout(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_504_raises_gateway_timeout(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(BASE).mock(return_value=Response(504))
     with pytest.raises(exceptions.GatewayTimeout):
         await pyke_client.lol_status.platform_data(Region.EUW)
@@ -147,7 +159,7 @@ async def test_504_raises_gateway_timeout(pyke_client: Pyke, respx_mock: MockRou
 @pytest.mark.asyncio
 async def test_unknown_status_code_raises_unknown_error(
     pyke_client: Pyke, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(BASE).mock(return_value=Response(418))
     with pytest.raises(exceptions.UnknownError) as exc_info:
         await pyke_client.lol_status.platform_data(Region.EUW)
@@ -157,7 +169,7 @@ async def test_unknown_status_code_raises_unknown_error(
 @pytest.mark.asyncio
 async def test_timeout_raises_request_timeout(
     pyke_client: Pyke, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(BASE).mock(side_effect=httpx.TimeoutException("timed out"))
     with pytest.raises(exceptions.RequestTimeout) as exc_info:
         await pyke_client.lol_status.platform_data(Region.EUW)
@@ -170,7 +182,7 @@ async def test_timeout_raises_request_timeout(
 @pytest.mark.asyncio
 async def test_each_raise_produces_fresh_exception(
     pyke_client: Pyke, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(BASE).mock(return_value=Response(404))
 
     with pytest.raises(exceptions.DataNotFound) as first:
@@ -185,18 +197,20 @@ async def test_each_raise_produces_fresh_exception(
 # --- Pyke init validation ---
 
 
-def test_none_api_key_raises():
+def test_none_api_key_raises() -> None:
     with pytest.raises(ValueError):
         Pyke(None)
 
 
-def test_valid_api_key_accepted():
+def test_valid_api_key_accepted() -> None:
     client = Pyke("RGAPI-000000000000000000000000000000000000")
     assert client is not None
 
 
 @pytest.mark.asyncio
-async def test_exception_exposes_response(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_exception_exposes_response(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(BASE).mock(return_value=Response(429))
 
     with pytest.raises(exceptions.RateLimitExceeded) as exc_info:
@@ -206,7 +220,7 @@ async def test_exception_exposes_response(pyke_client: Pyke, respx_mock: MockRou
     assert exc_info.value.response.status_code == 429
 
 
-def test_exception_repr():
+def test_exception_repr() -> None:
     exc = exceptions.DataNotFound("Not found", 404)
     assert (
         repr(exc) == "DataNotFound(message='Not found', error_code=404, response=None)"

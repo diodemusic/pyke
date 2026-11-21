@@ -9,7 +9,7 @@ PUUID = "a" * 78
 
 
 @pytest.mark.asyncio
-async def test_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_by_puuid(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/summoners/by-puuid/{PUUID}").mock(
         return_value=Response(
             200,
@@ -29,7 +29,9 @@ async def test_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_by_puuid_not_found_raises(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_by_puuid_not_found_raises(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/summoners/by-puuid/{PUUID}").mock(
         return_value=Response(404)
     )
@@ -39,7 +41,9 @@ async def test_by_puuid_not_found_raises(pyke_client: Pyke, respx_mock: MockRout
 
 
 @pytest.mark.asyncio
-async def test_by_puuid_forbidden_raises(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_by_puuid_forbidden_raises(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/summoners/by-puuid/{PUUID}").mock(
         return_value=Response(403)
     )
@@ -49,7 +53,7 @@ async def test_by_puuid_forbidden_raises(pyke_client: Pyke, respx_mock: MockRout
 
 
 @pytest.mark.asyncio
-async def test_by_puuid_kr_region(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_by_puuid_kr_region(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(
         f"https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/{PUUID}"
     ).mock(return_value=Response(200, json={"puuid": PUUID, "summonerLevel": 500}))

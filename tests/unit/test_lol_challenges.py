@@ -10,7 +10,7 @@ CHALLENGE_ID = 101
 
 
 @pytest.mark.asyncio
-async def test_config(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_config(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/challenges/config").mock(
         return_value=Response(
             200,
@@ -25,7 +25,7 @@ async def test_config(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_percentiles(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_percentiles(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/challenges/percentiles").mock(
         return_value=Response(200, json={"101": {"GOLD": 0.15}})
     )
@@ -37,7 +37,9 @@ async def test_percentiles(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_config_by_challenge_id(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_config_by_challenge_id(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/challenges/{CHALLENGE_ID}/config").mock(
         return_value=Response(200, json={"id": CHALLENGE_ID, "state": "ENABLED"})
     )
@@ -50,7 +52,7 @@ async def test_config_by_challenge_id(pyke_client: Pyke, respx_mock: MockRouter)
 
 
 @pytest.mark.asyncio
-async def test_leaderboards_by_level(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_leaderboards_by_level(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(
         f"{BASE}/challenges/{CHALLENGE_ID}/leaderboards/by-level/MASTER"
     ).mock(
@@ -69,7 +71,9 @@ async def test_leaderboards_by_level(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_percentiles_by_challenge_id(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_percentiles_by_challenge_id(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/challenges/{CHALLENGE_ID}/percentiles").mock(
         return_value=Response(200, json={"GOLD": 0.15, "PLATINUM": 0.05})
     )
@@ -83,7 +87,7 @@ async def test_percentiles_by_challenge_id(pyke_client: Pyke, respx_mock: MockRo
 
 
 @pytest.mark.asyncio
-async def test_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_by_puuid(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/player-data/{PUUID}").mock(
         return_value=Response(
             200,
@@ -100,7 +104,9 @@ async def test_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_config_forbidden_raises(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_config_forbidden_raises(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/challenges/config").mock(return_value=Response(403))
 
     with pytest.raises(exceptions.Forbidden):
@@ -108,7 +114,9 @@ async def test_config_forbidden_raises(pyke_client: Pyke, respx_mock: MockRouter
 
 
 @pytest.mark.asyncio
-async def test_by_puuid_not_found_raises(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_by_puuid_not_found_raises(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/player-data/{PUUID}").mock(return_value=Response(404))
 
     with pytest.raises(exceptions.DataNotFound):

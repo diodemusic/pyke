@@ -10,7 +10,9 @@ BASE = f"https://ddragon.leagueoflegends.com/cdn/{VERSION}/data/{LOCALE}"
 
 
 @pytest.mark.asyncio
-async def test_champion_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
+async def test_champion_get_all(
+    ddragon_client: DataDragon, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/champion.json").mock(
         return_value=Response(200, json={"data": {"Aatrox": {"id": "Aatrox"}}})
     )
@@ -24,7 +26,7 @@ async def test_champion_get_all(ddragon_client: DataDragon, respx_mock: MockRout
 @pytest.mark.asyncio
 async def test_champion_full_get_all(
     ddragon_client: DataDragon, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(f"{BASE}/championFull.json").mock(
         return_value=Response(200, json={"data": {"Aatrox": {"id": "Aatrox"}}})
     )
@@ -35,7 +37,7 @@ async def test_champion_full_get_all(
 
 
 @pytest.mark.asyncio
-async def test_item_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
+async def test_item_get_all(ddragon_client: DataDragon, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/item.json").mock(
         return_value=Response(200, json={"data": {"1001": {"name": "Boots"}}})
     )
@@ -49,7 +51,7 @@ async def test_item_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
 @pytest.mark.asyncio
 async def test_runes_reforged_get_all(
     ddragon_client: DataDragon, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(f"{BASE}/runesReforged.json").mock(
         return_value=Response(200, json=[{"id": 8000, "key": "Precision"}])
     )
@@ -57,11 +59,13 @@ async def test_runes_reforged_get_all(
     result = await ddragon_client.runes_reforged.get_all(LOCALE)
 
     assert isinstance(result, list)
-    assert result[0]["key"] == "Precision"  # type: ignore
+    assert result[0]["key"] == "Precision"
 
 
 @pytest.mark.asyncio
-async def test_summoner_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
+async def test_summoner_get_all(
+    ddragon_client: DataDragon, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/summoner.json").mock(
         return_value=Response(
             200, json={"data": {"SummonerFlash": {"id": "SummonerFlash"}}}
@@ -74,7 +78,7 @@ async def test_summoner_get_all(ddragon_client: DataDragon, respx_mock: MockRout
 
 
 @pytest.mark.asyncio
-async def test_map_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
+async def test_map_get_all(ddragon_client: DataDragon, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/map.json").mock(
         return_value=Response(
             200, json={"data": {"11": {"MapName": "Summoner's Rift"}}}
@@ -87,7 +91,9 @@ async def test_map_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_profileicon_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
+async def test_profileicon_get_all(
+    ddragon_client: DataDragon, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/profileicon.json").mock(
         return_value=Response(200, json={"data": {"0": {"id": 0}}})
     )
@@ -98,7 +104,9 @@ async def test_profileicon_get_all(ddragon_client: DataDragon, respx_mock: MockR
 
 
 @pytest.mark.asyncio
-async def test_language_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
+async def test_language_get_all(
+    ddragon_client: DataDragon, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/language.json").mock(
         return_value=Response(200, json={"data": {}})
     )
@@ -109,7 +117,9 @@ async def test_language_get_all(ddragon_client: DataDragon, respx_mock: MockRout
 
 
 @pytest.mark.asyncio
-async def test_challenges_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
+async def test_challenges_get_all(
+    ddragon_client: DataDragon, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/challenges.json").mock(
         return_value=Response(200, json={"data": {}})
     )
@@ -122,7 +132,7 @@ async def test_challenges_get_all(ddragon_client: DataDragon, respx_mock: MockRo
 @pytest.mark.asyncio
 async def test_itemmodifiers_get_all(
     ddragon_client: DataDragon, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(f"{BASE}/item-modifiers.json").mock(
         return_value=Response(200, json={"data": {}})
     )
@@ -133,7 +143,9 @@ async def test_itemmodifiers_get_all(
 
 
 @pytest.mark.asyncio
-async def test_spellbuffs_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
+async def test_spellbuffs_get_all(
+    ddragon_client: DataDragon, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/spellbuffs.json").mock(
         return_value=Response(200, json={"data": {}})
     )
@@ -144,7 +156,9 @@ async def test_spellbuffs_get_all(ddragon_client: DataDragon, respx_mock: MockRo
 
 
 @pytest.mark.asyncio
-async def test_sticker_get_all(ddragon_client: DataDragon, respx_mock: MockRouter):
+async def test_sticker_get_all(
+    ddragon_client: DataDragon, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/sticker.json").mock(
         return_value=Response(200, json={"data": {}})
     )
@@ -157,7 +171,7 @@ async def test_sticker_get_all(ddragon_client: DataDragon, respx_mock: MockRoute
 @pytest.mark.asyncio
 async def test_missionassets_get_all(
     ddragon_client: DataDragon, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(f"{BASE}/mission-assets.json").mock(
         return_value=Response(200, json={"data": {}})
     )
@@ -168,7 +182,9 @@ async def test_missionassets_get_all(
 
 
 @pytest.mark.asyncio
-async def test_version_in_url(ddragon_client: DataDragon, respx_mock: MockRouter):
+async def test_version_in_url(
+    ddragon_client: DataDragon, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/champion.json").mock(
         return_value=Response(200, json={"data": {}})
     )
@@ -180,7 +196,9 @@ async def test_version_in_url(ddragon_client: DataDragon, respx_mock: MockRouter
 
 
 @pytest.mark.asyncio
-async def test_locale_in_url(ddragon_client: DataDragon, respx_mock: MockRouter):
+async def test_locale_in_url(
+    ddragon_client: DataDragon, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/champion.json").mock(
         return_value=Response(200, json={"data": {}})
     )
@@ -194,7 +212,7 @@ async def test_locale_in_url(ddragon_client: DataDragon, respx_mock: MockRouter)
 @pytest.mark.asyncio
 async def test_champion_not_found_raises(
     ddragon_client: DataDragon, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(f"{BASE}/champion.json").mock(return_value=Response(404))
 
     with pytest.raises(exceptions.DataNotFound):
@@ -204,7 +222,7 @@ async def test_champion_not_found_raises(
 @pytest.mark.asyncio
 async def test_champion_internal_server_error_raises(
     ddragon_client: DataDragon, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(f"{BASE}/champion.json").mock(return_value=Response(500))
 
     with pytest.raises(exceptions.InternalServerError):
