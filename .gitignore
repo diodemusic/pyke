@@ -221,6 +221,3 @@ src/pyke/generators/schema.json
 *.md
 !README.md
 !CHANGELOG.md
-
-# DDragon
-generators/dragontail-*/
