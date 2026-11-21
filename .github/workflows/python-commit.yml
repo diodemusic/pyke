@@ -10,36 +10,22 @@ jobs:
   lint-test-build:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 1
       matrix:
         python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python-version }}
-          cache: pip
+          enable-cache: true
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install .[dev] black mypy bandit pytest
-
-      - name: Lint with Black
-        run: black --check --diff .
-
-      - name: Type check with mypy
-        run: mypy --ignore-missing-imports --install-types --non-interactive .
-
-      - name: Security scan with Bandit
-        run: bandit -r src
-
-      - name: Run tests
-        run: pytest -v -s
+      - run: uv sync --locked
+      - run: uv run black --check --diff .
+      - run: uv run mypy --ignore-missing-imports .
+      - run: uv run bandit -r src
+      - run: uv run pytest -v
 
   build-docs:
     runs-on: ubuntu-latest
@@ -50,21 +36,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.13
-        uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.13"
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install .[dev] pdoc
+      - run: uv sync --locked
 
       - name: Clean old docs
         run: rm -rf docs
 
       - name: Build Docs
-        run: pdoc pyke -o docs
+        run: uv run pdoc pyke -o docs
 
       - name: Upload Docs
         uses: actions/upload-artifact@v4
