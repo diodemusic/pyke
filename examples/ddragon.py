@@ -3,7 +3,7 @@ import asyncio
 from pyke import DataDragon
 
 
-async def main():
+async def main() -> None:
     # Let's create a DataDragon instance, the latest version will be used
     async with DataDragon() as ddragon:
         # Now we can use ddragon like this

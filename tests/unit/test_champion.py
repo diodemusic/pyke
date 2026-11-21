@@ -8,7 +8,7 @@ BASE = "https://euw1.api.riotgames.com"
 
 
 @pytest.mark.asyncio
-async def test_rotations(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_rotations(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/lol/platform/v3/champion-rotations").mock(
         return_value=Response(
             200,
@@ -27,7 +27,9 @@ async def test_rotations(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_rotations_forbidden_raises(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_rotations_forbidden_raises(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/lol/platform/v3/champion-rotations").mock(
         return_value=Response(403)
     )
@@ -37,7 +39,9 @@ async def test_rotations_forbidden_raises(pyke_client: Pyke, respx_mock: MockRou
 
 
 @pytest.mark.asyncio
-async def test_rotations_unauthorized_raises(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_rotations_unauthorized_raises(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/lol/platform/v3/champion-rotations").mock(
         return_value=Response(401)
     )

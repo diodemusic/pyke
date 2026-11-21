@@ -10,7 +10,7 @@ MATCH_ID = "EUW1_1234567890"
 
 
 @pytest.mark.asyncio
-async def test_match_ids_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_match_ids_by_puuid(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/matches/by-puuid/{PUUID}/ids").mock(
         return_value=Response(
             200,
@@ -30,7 +30,9 @@ async def test_match_ids_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_match_ids_by_puuid_with_type(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_match_ids_by_puuid_with_type(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/matches/by-puuid/{PUUID}/ids").mock(
         return_value=Response(200, json=["EUW1_1111111111"])
     )
@@ -43,7 +45,9 @@ async def test_match_ids_by_puuid_with_type(pyke_client: Pyke, respx_mock: MockR
 
 
 @pytest.mark.asyncio
-async def test_match_ids_by_puuid_with_count(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_match_ids_by_puuid_with_count(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/matches/by-puuid/{PUUID}/ids").mock(
         return_value=Response(200, json=["EUW1_1111111111", "EUW1_2222222222"])
     )
@@ -58,7 +62,7 @@ async def test_match_ids_by_puuid_with_count(pyke_client: Pyke, respx_mock: Mock
 @pytest.mark.asyncio
 async def test_match_ids_invalid_response_raises(
     pyke_client: Pyke, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(f"{BASE}/matches/by-puuid/{PUUID}/ids").mock(
         return_value=Response(200, json={"not": "a list"})
     )
@@ -70,7 +74,7 @@ async def test_match_ids_invalid_response_raises(
 @pytest.mark.asyncio
 async def test_match_ids_non_string_items_raises(
     pyke_client: Pyke, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(f"{BASE}/matches/by-puuid/{PUUID}/ids").mock(
         return_value=Response(200, json=[1, 2, 3])
     )
@@ -80,7 +84,7 @@ async def test_match_ids_non_string_items_raises(
 
 
 @pytest.mark.asyncio
-async def test_replays_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_replays_by_puuid(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/matches/by-puuid/{PUUID}/replays").mock(
         return_value=Response(
             200,
@@ -101,7 +105,7 @@ async def test_replays_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_by_match_id(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_by_match_id(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/matches/{MATCH_ID}").mock(
         return_value=Response(
             200,
@@ -119,7 +123,7 @@ async def test_by_match_id(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_timeline_by_match_id(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_timeline_by_match_id(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/matches/{MATCH_ID}/timeline").mock(
         return_value=Response(
             200,
@@ -137,7 +141,9 @@ async def test_timeline_by_match_id(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_by_match_id_not_found_raises(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_by_match_id_not_found_raises(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/matches/{MATCH_ID}").mock(return_value=Response(404))
 
     with pytest.raises(exceptions.DataNotFound):
@@ -145,7 +151,9 @@ async def test_by_match_id_not_found_raises(pyke_client: Pyke, respx_mock: MockR
 
 
 @pytest.mark.asyncio
-async def test_match_ids_rate_limit_raises(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_match_ids_rate_limit_raises(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/matches/by-puuid/{PUUID}/ids").mock(
         return_value=Response(429)
     )

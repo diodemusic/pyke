@@ -8,7 +8,7 @@ BASE = "https://euw1.api.riotgames.com/lol/status/v4"
 
 
 @pytest.mark.asyncio
-async def test_platform_data(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_platform_data(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/platform-data").mock(
         return_value=Response(
             200,
@@ -30,7 +30,7 @@ async def test_platform_data(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_platform_data_na(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_platform_data_na(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get("https://na1.api.riotgames.com/lol/status/v4/platform-data").mock(
         return_value=Response(200, json={"id": "NA1", "name": "North America"})
     )
@@ -43,7 +43,7 @@ async def test_platform_data_na(pyke_client: Pyke, respx_mock: MockRouter):
 @pytest.mark.asyncio
 async def test_platform_data_service_unavailable_raises(
     pyke_client: Pyke, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(f"{BASE}/platform-data").mock(return_value=Response(503))
 
     with pytest.raises(exceptions.ServiceUnavailable):
@@ -53,7 +53,7 @@ async def test_platform_data_service_unavailable_raises(
 @pytest.mark.asyncio
 async def test_platform_data_forbidden_raises(
     pyke_client: Pyke, respx_mock: MockRouter
-):
+) -> None:
     respx_mock.get(f"{BASE}/platform-data").mock(return_value=Response(403))
 
     with pytest.raises(exceptions.Forbidden):

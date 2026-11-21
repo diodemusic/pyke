@@ -9,7 +9,7 @@ PUUID = "a" * 78
 
 
 @pytest.mark.asyncio
-async def test_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_by_puuid(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/active-games/by-summoner/{PUUID}").mock(
         return_value=Response(
             200,
@@ -29,7 +29,9 @@ async def test_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_by_puuid_not_in_game_raises(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_by_puuid_not_in_game_raises(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/active-games/by-summoner/{PUUID}").mock(
         return_value=Response(404)
     )
@@ -39,7 +41,9 @@ async def test_by_puuid_not_in_game_raises(pyke_client: Pyke, respx_mock: MockRo
 
 
 @pytest.mark.asyncio
-async def test_by_puuid_different_region(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_by_puuid_different_region(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(
         f"https://na1.api.riotgames.com/lol/spectator/v5/active-games/by-summoner/{PUUID}"
     ).mock(return_value=Response(200, json={"gameId": 9999999999, "gameMode": "ARAM"}))

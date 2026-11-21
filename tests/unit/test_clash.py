@@ -11,7 +11,7 @@ TOURNAMENT_ID = 12345
 
 
 @pytest.mark.asyncio
-async def test_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_by_puuid(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/players/by-puuid/{PUUID}").mock(
         return_value=Response(
             200, json=[{"puuid": PUUID, "teamId": TEAM_ID, "position": "CAPTAIN"}]
@@ -25,7 +25,7 @@ async def test_by_puuid(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_by_team_id(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_by_team_id(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/teams/{TEAM_ID}").mock(
         return_value=Response(
             200,
@@ -40,7 +40,7 @@ async def test_by_team_id(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_tournaments(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_tournaments(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/tournaments").mock(
         return_value=Response(
             200,
@@ -55,7 +55,7 @@ async def test_tournaments(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_tournament_by_team_id(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_tournament_by_team_id(pyke_client: Pyke, respx_mock: MockRouter) -> None:
     respx_mock.get(f"{BASE}/tournaments/by-team/{TEAM_ID}").mock(
         return_value=Response(
             200, json={"id": TOURNAMENT_ID, "nameKey": "test_tournament"}
@@ -68,7 +68,9 @@ async def test_tournament_by_team_id(pyke_client: Pyke, respx_mock: MockRouter):
 
 
 @pytest.mark.asyncio
-async def test_tournament_by_tournament_id(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_tournament_by_tournament_id(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/tournaments/{TOURNAMENT_ID}").mock(
         return_value=Response(
             200, json={"id": TOURNAMENT_ID, "nameKey": "test_tournament"}
@@ -83,7 +85,9 @@ async def test_tournament_by_tournament_id(pyke_client: Pyke, respx_mock: MockRo
 
 
 @pytest.mark.asyncio
-async def test_tournaments_not_found_raises(pyke_client: Pyke, respx_mock: MockRouter):
+async def test_tournaments_not_found_raises(
+    pyke_client: Pyke, respx_mock: MockRouter
+) -> None:
     respx_mock.get(f"{BASE}/tournaments").mock(return_value=Response(404))
 
     with pytest.raises(exceptions.DataNotFound):

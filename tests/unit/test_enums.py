@@ -3,21 +3,21 @@ from pyke import Continent, Division, Level, MatchType, Queue, Region, Tier
 # --- Continent ---
 
 
-def test_continent_values():
+def test_continent_values() -> None:
     assert Continent.AMERICAS.value == "americas"
     assert Continent.ASIA.value == "asia"
     assert Continent.EUROPE.value == "europe"
     assert Continent.SEA.value == "sea"
 
 
-def test_continent_count():
+def test_continent_count() -> None:
     assert len(Continent) == 4
 
 
 # --- Region ---
 
 
-def test_region_values():
+def test_region_values() -> None:
     assert Region.BR.value == "br1"
     assert Region.EUNE.value == "eun1"
     assert Region.EUW.value == "euw1"
@@ -35,7 +35,7 @@ def test_region_values():
     assert Region.VN.value == "vn2"
 
 
-def test_region_no_duplicate_values():
+def test_region_no_duplicate_values() -> None:
     values = [r.value for r in Region]
     assert len(values) == len(set(values)), "Region enum has duplicate values"
 
@@ -43,19 +43,19 @@ def test_region_no_duplicate_values():
 # --- Queue ---
 
 
-def test_queue_values():
+def test_queue_values() -> None:
     assert Queue.SOLO_DUO.value == "RANKED_SOLO_5x5"
     assert Queue.FLEX.value == "RANKED_FLEX_SR"
 
 
-def test_queue_count():
+def test_queue_count() -> None:
     assert len(Queue) == 2
 
 
 # --- Tier ---
 
 
-def test_tier_values():
+def test_tier_values() -> None:
     assert Tier.IRON.value == "IRON"
     assert Tier.BRONZE.value == "BRONZE"
     assert Tier.SILVER.value == "SILVER"
@@ -68,28 +68,28 @@ def test_tier_values():
     assert Tier.CHALLENGER.value == "CHALLENGER"
 
 
-def test_tier_count():
+def test_tier_count() -> None:
     assert len(Tier) == 10
 
 
 # --- Division ---
 
 
-def test_division_values():
+def test_division_values() -> None:
     assert Division.I.value == "I"
     assert Division.II.value == "II"
     assert Division.III.value == "III"
     assert Division.IV.value == "IV"
 
 
-def test_division_count():
+def test_division_count() -> None:
     assert len(Division) == 4
 
 
 # --- Level ---
 
 
-def test_level_values():
+def test_level_values() -> None:
     assert Level.NONE.value == "NONE"
     assert Level.IRON.value == "IRON"
     assert Level.MASTER.value == "MASTER"
@@ -102,12 +102,12 @@ def test_level_values():
 # --- MatchType ---
 
 
-def test_match_type_values():
+def test_match_type_values() -> None:
     assert MatchType.RANKED.value == "ranked"
     assert MatchType.NORMAL.value == "normal"
     assert MatchType.TOURNEY.value == "tourney"
     assert MatchType.TUTORIAL.value == "tutorial"
 
 
-def test_type_count():
+def test_type_count() -> None:
     assert len(MatchType) == 4
